@@ -1,6 +1,6 @@
 # NET.S.2018.Kononenko.15
 
-1. Make corrections to generalized methods of binary search, filter method, transformer method - to implement as generalized extension methods ([watch here](https://github.com/AlexanderKononenko210b/NET.S.2018.Kononenko.01.git)), as well as the method of finding the n-first numbers of the Fibonacci sequence - to implement as a sequence generator.[watch here](https://github.com/AlexanderKononenko210b/NET.S.2018.Kononenko.14.git)
+1. Make corrections to generalized methods of binary search ([watch here](https://github.com/AlexanderKononenko210b/NET.S.2018.Kononenko.14.git)), filter method, transformer method - to implement as generalized extension methods ([watch here](https://github.com/AlexanderKononenko210b/NET.S.2018.Kononenko.01.git)), as well as the method of finding the n-first numbers of the Fibonacci sequence - to implement as a sequence generator.[watch here](https://github.com/AlexanderKononenko210b/NET.S.2018.Kononenko.14.git)
 
 2. Make corrections to the generalized collection-class Queue.[watch here](https://github.com/AlexanderKononenko210b/NET.S.2018.Kononenko.14.git)
 
