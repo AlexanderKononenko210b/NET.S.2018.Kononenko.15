@@ -1,15 +1,17 @@
 ﻿using System;
 using NUnit.Framework;
-using BinarySearchTree;
+using CustomBinarySearchTree;
 
 namespace BinarySearchTree.Test
 {
     /// <summary>
-    /// Class test CustomBinarySearchTree with System.Int32
+    /// Class test BinarySearchTree with System.Int32
     /// </summary>
     [TestFixture]
     public class SystemInt32Test
     {
+        private int[] inputArray = new int[7] {5, 3, 8, 1, 4, 6, 9};
+        
         /// <summary>
         /// Test bypass CustomBinarySearch in a direct order with IComparer
         /// </summary>
@@ -18,22 +20,15 @@ namespace BinarySearchTree.Test
         {
             var comparer = new IntComparator();
 
-            var newTree = new CustomBinarySearchTree<int>(comparer);
+            var newTree = new BinarySearchTree<int>(comparer);
 
-            newTree.Add(5);
-            newTree.Add(3);
-            newTree.Add(8);
-            newTree.Add(1);
-            newTree.Add(4);
-            newTree.Add(6);
-            newTree.Add(9);
-
+            newTree.Add(inputArray);
 
             var helperArrayResult = new int[7] { 5, 3, 1, 4, 8, 6, 9 };
 
             var index = 0;
 
-            foreach (int item in newTree.Preorder())
+            foreach (int item in newTree)
             {
                 Assert.AreEqual(helperArrayResult[index++], item);
             }
@@ -47,15 +42,9 @@ namespace BinarySearchTree.Test
         {
             var comparer = new IntComparator();
 
-            var newTree = new CustomBinarySearchTree<int>(comparer);
+            var newTree = new BinarySearchTree<int>(comparer);
 
-            newTree.Add(5);
-            newTree.Add(3);
-            newTree.Add(8);
-            newTree.Add(1);
-            newTree.Add(4);
-            newTree.Add(6);
-            newTree.Add(9);
+            newTree.Add(inputArray);
 
             var helperArrayResult = new int[7] { 1, 4, 3, 6, 9, 8, 5 };
 
@@ -75,15 +64,9 @@ namespace BinarySearchTree.Test
         {
             var comparer = new IntComparator();
 
-            var newTree = new CustomBinarySearchTree<int>(comparer);
+            var newTree = new BinarySearchTree<int>(comparer);
 
-            newTree.Add(5);
-            newTree.Add(3);
-            newTree.Add(8);
-            newTree.Add(1);
-            newTree.Add(4);
-            newTree.Add(6);
-            newTree.Add(9);
+            newTree.Add(inputArray);
 
             var helperArrayResult = new int[7] { 1, 3, 4, 5, 6, 8, 9 };
 
@@ -105,22 +88,15 @@ namespace BinarySearchTree.Test
 
             Comparison<int> comparison = comparer.Compare;
 
-            var newTree = new CustomBinarySearchTree<int>(comparison);
+            var newTree = new BinarySearchTree<int>(comparison);
 
-            newTree.Add(5);
-            newTree.Add(3);
-            newTree.Add(8);
-            newTree.Add(1);
-            newTree.Add(4);
-            newTree.Add(6);
-            newTree.Add(9);
-
+            newTree.Add(inputArray);
 
             var helperArrayResult = new int[7] { 5, 3, 1, 4, 8, 6, 9 };
 
             var index = 0;
 
-            foreach (int item in newTree.Preorder())
+            foreach (int item in newTree)
             {
                 Assert.AreEqual(helperArrayResult[index++], item);
             }
@@ -136,15 +112,9 @@ namespace BinarySearchTree.Test
 
             Comparison<int> comparison = comparer.Compare;
 
-            var newTree = new CustomBinarySearchTree<int>(comparison);
+            var newTree = new BinarySearchTree<int>(comparison);
 
-            newTree.Add(5);
-            newTree.Add(3);
-            newTree.Add(8);
-            newTree.Add(1);
-            newTree.Add(4);
-            newTree.Add(6);
-            newTree.Add(9);
+            newTree.Add(inputArray);
 
             var helperArrayResult = new int[7] { 1, 4, 3, 6, 9, 8, 5 };
 
@@ -166,15 +136,9 @@ namespace BinarySearchTree.Test
 
             Comparison<int> comparison = comparer.Compare;
 
-            var newTree = new CustomBinarySearchTree<int>(comparison);
+            var newTree = new BinarySearchTree<int>(comparison);
 
-            newTree.Add(5);
-            newTree.Add(3);
-            newTree.Add(8);
-            newTree.Add(1);
-            newTree.Add(4);
-            newTree.Add(6);
-            newTree.Add(9);
+            newTree.Add(inputArray);
 
             var helperArrayResult = new int[7] { 1, 3, 4, 5, 6, 8, 9 };
 
@@ -196,21 +160,15 @@ namespace BinarySearchTree.Test
 
             comparer = null;
 
-            var newTree = new CustomBinarySearchTree<int>(comparer);
+            var newTree = new BinarySearchTree<int>(comparer);
 
-            newTree.Add(5);
-            newTree.Add(3);
-            newTree.Add(8);
-            newTree.Add(1);
-            newTree.Add(4);
-            newTree.Add(6);
-            newTree.Add(9);
+            newTree.Add(inputArray);
 
             var helperArrayResult = new int[7] { 5, 3, 1, 4, 8, 6, 9 };
 
             var index = 0;
 
-            foreach (int item in newTree.Preorder())
+            foreach (int item in newTree)
             {
                 Assert.AreEqual(helperArrayResult[index++], item);
             }
@@ -226,15 +184,9 @@ namespace BinarySearchTree.Test
 
             comparer = null;
 
-            var newTree = new CustomBinarySearchTree<int>(comparer);
+            var newTree = new BinarySearchTree<int>(comparer);
 
-            newTree.Add(5);
-            newTree.Add(3);
-            newTree.Add(8);
-            newTree.Add(1);
-            newTree.Add(4);
-            newTree.Add(6);
-            newTree.Add(9);
+            newTree.Add(inputArray);
 
             var helperArrayResult = new int[7] { 1, 4, 3, 6, 9, 8, 5 };
 
@@ -256,15 +208,9 @@ namespace BinarySearchTree.Test
 
             comparer = null;
 
-            var newTree = new CustomBinarySearchTree<int>(comparer);
+            var newTree = new BinarySearchTree<int>(comparer);
 
-            newTree.Add(5);
-            newTree.Add(3);
-            newTree.Add(8);
-            newTree.Add(1);
-            newTree.Add(4);
-            newTree.Add(6);
-            newTree.Add(9);
+            newTree.Add(inputArray);
 
             var helperArrayResult = new int[7] { 1, 3, 4, 5, 6, 8, 9 };
 
@@ -286,21 +232,15 @@ namespace BinarySearchTree.Test
 
             Comparison<int> comparison = null;
 
-            var newTree = new CustomBinarySearchTree<int>(comparison);
+            var newTree = new BinarySearchTree<int>(comparison);
 
-            newTree.Add(5);
-            newTree.Add(3);
-            newTree.Add(8);
-            newTree.Add(1);
-            newTree.Add(4);
-            newTree.Add(6);
-            newTree.Add(9);
+            newTree.Add(inputArray);
 
             var helperArrayResult = new int[7] { 5, 3, 1, 4, 8, 6, 9 };
 
             var index = 0;
 
-            foreach (int item in newTree.Preorder())
+            foreach (int item in newTree)
             {
                 Assert.AreEqual(helperArrayResult[index++], item);
             }
@@ -316,15 +256,9 @@ namespace BinarySearchTree.Test
 
             Comparison<int> comparison = null;
 
-            var newTree = new CustomBinarySearchTree<int>(comparison);
+            var newTree = new BinarySearchTree<int>(comparison);
 
-            newTree.Add(5);
-            newTree.Add(3);
-            newTree.Add(8);
-            newTree.Add(1);
-            newTree.Add(4);
-            newTree.Add(6);
-            newTree.Add(9);
+            newTree.Add(inputArray);
 
             var helperArrayResult = new int[7] { 1, 4, 3, 6, 9, 8, 5 };
 
@@ -346,15 +280,9 @@ namespace BinarySearchTree.Test
 
             Comparison<int> comparison = null;
 
-            var newTree = new CustomBinarySearchTree<int>(comparison);
+            var newTree = new BinarySearchTree<int>(comparison);
 
-            newTree.Add(5);
-            newTree.Add(3);
-            newTree.Add(8);
-            newTree.Add(1);
-            newTree.Add(4);
-            newTree.Add(6);
-            newTree.Add(9);
+            newTree.Add(inputArray);
 
             var helperArrayResult = new int[7] { 1, 3, 4, 5, 6, 8, 9 };
 
@@ -372,22 +300,15 @@ namespace BinarySearchTree.Test
         [Test]
         public void Int_Preorder_CustomBinaryTree_With_Default_Comparer()
         {
-            var newTree = new CustomBinarySearchTree<int>();
+            var newTree = new BinarySearchTree<int>();
 
-            newTree.Add(5);
-            newTree.Add(3);
-            newTree.Add(8);
-            newTree.Add(1);
-            newTree.Add(4);
-            newTree.Add(6);
-            newTree.Add(9);
-
+            newTree.Add(inputArray);
 
             var helperArrayResult = new int[7] { 5, 3, 1, 4, 8, 6, 9 };
 
             var index = 0;
 
-            foreach (int item in newTree.Preorder())
+            foreach (int item in newTree)
             {
                 Assert.AreEqual(helperArrayResult[index++], item);
             }
@@ -399,15 +320,9 @@ namespace BinarySearchTree.Test
         [Test]
         public void Int_Postorder_CustomBinaryTree_With_Default_Comparer()
         {
-            var newTree = new CustomBinarySearchTree<int>();
+            var newTree = new BinarySearchTree<int>();
 
-            newTree.Add(5);
-            newTree.Add(3);
-            newTree.Add(8);
-            newTree.Add(1);
-            newTree.Add(4);
-            newTree.Add(6);
-            newTree.Add(9);
+            newTree.Add(inputArray);
 
             var helperArrayResult = new int[7] { 1, 4, 3, 6, 9, 8, 5 };
 
@@ -425,15 +340,9 @@ namespace BinarySearchTree.Test
         [Test]
         public void Int_Inorder_CustomBinaryTree_With_Default_Comparer()
         {
-            var newTree = new CustomBinarySearchTree<int>();
+            var newTree = new BinarySearchTree<int>();
 
-            newTree.Add(5);
-            newTree.Add(3);
-            newTree.Add(8);
-            newTree.Add(1);
-            newTree.Add(4);
-            newTree.Add(6);
-            newTree.Add(9);
+            newTree.Add(inputArray);
 
             var helperArrayResult = new int[7] { 1, 3, 4, 5, 6, 8, 9 };
 
@@ -446,22 +355,16 @@ namespace BinarySearchTree.Test
         }
 
         /// <summary>
-        /// Test add new item in CustomBinaryTree when expected InvalidOperationException
+        /// Test Search item in BinarySearchTree if T is type int
         /// </summary>
         [Test]
-        public void Int_Add_New_Element_With_Duplicates_Expected_InvalidOperationException()
+        public void Int_Contains_CustomBinaryTree()
         {
-            var newTree = new CustomBinarySearchTree<int>();
+            var newTree = new BinarySearchTree<int>(inputArray);
 
-            newTree.Add(5);
-            newTree.Add(3);
-            newTree.Add(8);
-            newTree.Add(1);
-            newTree.Add(4);
-            newTree.Add(6);
-            newTree.Add(9);
+            Assert.IsTrue(newTree.Contains(4));
 
-            Assert.Throws<InvalidOperationException>(() => newTree.Add(9));
+            Assert.IsFalse(newTree.Contains(20));
         }
     }
 }

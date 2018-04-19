@@ -1,15 +1,38 @@
 ﻿using System;
 using NUnit.Framework;
-using BinarySearchTree;
+using CustomBinarySearchTree;
 
 namespace BinarySearchTree.Test
 {
     /// <summary>
-    /// Class test CustomBinarySearchTree with class Book
+    /// Class test BinarySearchTree with class Book
     /// </summary>
     [TestFixture]
     public class BookTest
     {
+        private Book[] inputArray = new Book[3];
+
+        [SetUp]
+        public void Initialize()
+        {
+            var book1 = new Book("978-0-7356-6745-4", "Jeffrey Richter",
+                "CLR via C#", "Microsoft Press", 2012, 826, new decimal(59.99));
+
+            inputArray[0] = book1;
+
+            var book2 = new Book("978-0-7356-6745-8", "Astakhov Mihail",
+                "Axperimental study of the strength",
+                "Bauman MSTU", 2006, 593, new decimal(10.30));
+
+            inputArray[1] = book2;
+
+            var book3 = new Book("978-0-7356-6745-1", "Timoshenko Sergey",
+                "Bibration problems in engineering",
+                "Mashinostroenie Publ", 1985, 472, new decimal(30.45));
+
+            inputArray[2] = book3;
+        }
+
         /// <summary>
         /// Test bypass CustomBinarySearch in a direct order with IComparer
         /// </summary>
@@ -18,30 +41,15 @@ namespace BinarySearchTree.Test
         {
             var comparer = new BookComparator();
 
-            var newTree = new CustomBinarySearchTree<Book>(comparer);
+            var newTree = new BinarySearchTree<Book>(comparer);
 
-            var book1 = new Book("978-0-7356-6745-4", "Jeffrey Richter",
-                "CLR via C#", "Microsoft Press", 2012, 826, new decimal(59.99));
+            newTree.Add(inputArray);
 
-            newTree.Add(book1);
-
-            var book2 = new Book("978-0-7356-6745-8", "Astakhov Mihail",
-                "Axperimental study of the strength",
-                "Bauman MSTU", 2006, 593, new decimal(10.30));
-
-            newTree.Add(book2);
-
-            var book3 = new Book("978-0-7356-6745-1", "Timoshenko Sergey",
-                "Bibration problems in engineering",
-                "Mashinostroenie Publ", 1985, 472, new decimal(30.45));
-
-            newTree.Add(book3);
-
-            var helperArrayResult = new Book[3] { book1, book3, book2 };
+            var helperArrayResult = new Book[3] { inputArray[0], inputArray[2], inputArray[1] };
 
             var index = 0;
 
-            foreach (Book item in newTree.Preorder())
+            foreach (Book item in newTree)
             {
                 Assert.AreEqual(helperArrayResult[index++], item);
             }
@@ -55,26 +63,11 @@ namespace BinarySearchTree.Test
         {
             var comparer = new BookComparator();
 
-            var newTree = new CustomBinarySearchTree<Book>(comparer);
+            var newTree = new BinarySearchTree<Book>(comparer);
 
-            var book1 = new Book("978-0-7356-6745-4", "Jeffrey Richter",
-                "CLR via C#", "Microsoft Press", 2012, 826, new decimal(59.99));
+            newTree.Add(inputArray);
 
-            newTree.Add(book1);
-
-            var book2 = new Book("978-0-7356-6745-8", "Astakhov Mihail",
-                "Axperimental study of the strength",
-                "Bauman MSTU", 2006, 593, new decimal(10.30));
-
-            newTree.Add(book2);
-
-            var book3 = new Book("978-0-7356-6745-1", "Timoshenko Sergey",
-                "Bibration problems in engineering",
-                "Mashinostroenie Publ", 1985, 472, new decimal(30.45));
-
-            newTree.Add(book3);
-
-            var helperArrayResult = new Book[3] { book3, book2, book1 };
+            var helperArrayResult = new Book[3] { inputArray[2], inputArray[1], inputArray[0] };
 
             var index = 0;
 
@@ -92,26 +85,11 @@ namespace BinarySearchTree.Test
         {
             var comparer = new BookComparator();
 
-            var newTree = new CustomBinarySearchTree<Book>(comparer);
+            var newTree = new BinarySearchTree<Book>(comparer);
 
-            var book1 = new Book("978-0-7356-6745-4", "Jeffrey Richter",
-                "CLR via C#", "Microsoft Press", 2012, 826, new decimal(59.99));
+            newTree.Add(inputArray);
 
-            newTree.Add(book1);
-
-            var book2 = new Book("978-0-7356-6745-8", "Astakhov Mihail",
-                "Axperimental study of the strength",
-                "Bauman MSTU", 2006, 593, new decimal(10.30));
-
-            newTree.Add(book2);
-
-            var book3 = new Book("978-0-7356-6745-1", "Timoshenko Sergey",
-                "Bibration problems in engineering",
-                "Mashinostroenie Publ", 1985, 472, new decimal(30.45));
-
-            newTree.Add(book3);
-
-            var helperArrayResult = new Book[3] { book3, book1, book2 };
+            var helperArrayResult = new Book[3] { inputArray[2], inputArray[0], inputArray[1] };
 
             var index = 0;
 
@@ -131,30 +109,15 @@ namespace BinarySearchTree.Test
 
             Comparison<Book> comparison = comparer.Compare;
 
-            var newTree = new CustomBinarySearchTree<Book>(comparison);
+            var newTree = new BinarySearchTree<Book>(comparison);
 
-            var book1 = new Book("978-0-7356-6745-4", "Jeffrey Richter",
-                "CLR via C#", "Microsoft Press", 2012, 826, new decimal(59.99));
+            newTree.Add(inputArray);
 
-            newTree.Add(book1);
-
-            var book2 = new Book("978-0-7356-6745-8", "Astakhov Mihail",
-                "Axperimental study of the strength",
-                "Bauman MSTU", 2006, 593, new decimal(10.30));
-
-            newTree.Add(book2);
-
-            var book3 = new Book("978-0-7356-6745-1", "Timoshenko Sergey",
-                "Bibration problems in engineering",
-                "Mashinostroenie Publ", 1985, 472, new decimal(30.45));
-
-            newTree.Add(book3);
-
-            var helperArrayResult = new Book[3] { book1, book3, book2 };
+            var helperArrayResult = new Book[3] { inputArray[0], inputArray[2], inputArray[1] };
 
             var index = 0;
 
-            foreach (Book item in newTree.Preorder())
+            foreach (Book item in newTree)
             {
                 Assert.AreEqual(helperArrayResult[index++], item);
             }
@@ -170,26 +133,11 @@ namespace BinarySearchTree.Test
 
             Comparison<Book> comparison = comparer.Compare;
 
-            var newTree = new CustomBinarySearchTree<Book>(comparison);
+            var newTree = new BinarySearchTree<Book>(comparison);
 
-            var book1 = new Book("978-0-7356-6745-4", "Jeffrey Richter",
-                "CLR via C#", "Microsoft Press", 2012, 826, new decimal(59.99));
+            newTree.Add(inputArray);
 
-            newTree.Add(book1);
-
-            var book2 = new Book("978-0-7356-6745-8", "Astakhov Mihail",
-                "Axperimental study of the strength",
-                "Bauman MSTU", 2006, 593, new decimal(10.30));
-
-            newTree.Add(book2);
-
-            var book3 = new Book("978-0-7356-6745-1", "Timoshenko Sergey",
-                "Bibration problems in engineering",
-                "Mashinostroenie Publ", 1985, 472, new decimal(30.45));
-
-            newTree.Add(book3);
-
-            var helperArrayResult = new Book[3] { book3, book2, book1 };
+            var helperArrayResult = new Book[3] { inputArray[2], inputArray[1], inputArray[0] };
 
             var index = 0;
 
@@ -209,26 +157,11 @@ namespace BinarySearchTree.Test
 
             Comparison<Book> comparison = comparer.Compare;
 
-            var newTree = new CustomBinarySearchTree<Book>(comparison);
+            var newTree = new BinarySearchTree<Book>(comparison);
 
-            var book1 = new Book("978-0-7356-6745-4", "Jeffrey Richter",
-                "CLR via C#", "Microsoft Press", 2012, 826, new decimal(59.99));
+            newTree.Add(inputArray);
 
-            newTree.Add(book1);
-
-            var book2 = new Book("978-0-7356-6745-8", "Astakhov Mihail",
-                "Axperimental study of the strength",
-                "Bauman MSTU", 2006, 593, new decimal(10.30));
-
-            newTree.Add(book2);
-
-            var book3 = new Book("978-0-7356-6745-1", "Timoshenko Sergey",
-                "Bibration problems in engineering",
-                "Mashinostroenie Publ", 1985, 472, new decimal(30.45));
-
-            newTree.Add(book3);
-
-            var helperArrayResult = new Book[3] { book3, book1, book2 };
+            var helperArrayResult = new Book[3] { inputArray[2], inputArray[0], inputArray[1] };
 
             var index = 0;
 
@@ -248,30 +181,15 @@ namespace BinarySearchTree.Test
 
             comparer = null;
 
-            var newTree = new CustomBinarySearchTree<Book>(comparer);
+            var newTree = new BinarySearchTree<Book>(comparer);
 
-            var book1 = new Book("978-0-7356-6745-4", "Jeffrey Richter",
-                "CLR via C#", "Microsoft Press", 2012, 826, new decimal(59.99));
+            newTree.Add(inputArray);
 
-            newTree.Add(book1);
-
-            var book2 = new Book("978-0-7356-6745-8", "Astakhov Mihail",
-                "Axperimental study of the strength",
-                "Bauman MSTU", 2006, 593, new decimal(10.30));
-
-            newTree.Add(book2);
-
-            var book3 = new Book("978-0-7356-6745-1", "Timoshenko Sergey",
-                "Bibration problems in engineering",
-                "Mashinostroenie Publ", 1985, 472, new decimal(30.45));
-
-            newTree.Add(book3);
-
-            var helperArrayResult = new Book[3] { book1, book3, book2 };
+            var helperArrayResult = new Book[3] { inputArray[0], inputArray[2], inputArray[1] };
 
             var index = 0;
 
-            foreach (Book item in newTree.Preorder())
+            foreach (Book item in newTree)
             {
                 Assert.AreEqual(helperArrayResult[index++], item);
             }
@@ -287,26 +205,11 @@ namespace BinarySearchTree.Test
 
             comparer = null;
 
-            var newTree = new CustomBinarySearchTree<Book>(comparer);
+            var newTree = new BinarySearchTree<Book>(comparer);
 
-            var book1 = new Book("978-0-7356-6745-4", "Jeffrey Richter",
-                "CLR via C#", "Microsoft Press", 2012, 826, new decimal(59.99));
+            newTree.Add(inputArray);
 
-            newTree.Add(book1);
-
-            var book2 = new Book("978-0-7356-6745-8", "Astakhov Mihail",
-                "Axperimental study of the strength",
-                "Bauman MSTU", 2006, 593, new decimal(10.30));
-
-            newTree.Add(book2);
-
-            var book3 = new Book("978-0-7356-6745-1", "Timoshenko Sergey",
-                "Bibration problems in engineering",
-                "Mashinostroenie Publ", 1985, 472, new decimal(30.45));
-
-            newTree.Add(book3);
-
-            var helperArrayResult = new Book[3] { book3, book2, book1 };
+            var helperArrayResult = new Book[3] { inputArray[2], inputArray[1], inputArray[0] };
 
             var index = 0;
 
@@ -326,26 +229,11 @@ namespace BinarySearchTree.Test
 
             comparer = null;
 
-            var newTree = new CustomBinarySearchTree<Book>(comparer);
+            var newTree = new BinarySearchTree<Book>(comparer);
 
-            var book1 = new Book("978-0-7356-6745-4", "Jeffrey Richter",
-                "CLR via C#", "Microsoft Press", 2012, 826, new decimal(59.99));
+            newTree.Add(inputArray);
 
-            newTree.Add(book1);
-
-            var book2 = new Book("978-0-7356-6745-8", "Astakhov Mihail",
-                "Axperimental study of the strength",
-                "Bauman MSTU", 2006, 593, new decimal(10.30));
-
-            newTree.Add(book2);
-
-            var book3 = new Book("978-0-7356-6745-1", "Timoshenko Sergey",
-                "Bibration problems in engineering",
-                "Mashinostroenie Publ", 1985, 472, new decimal(30.45));
-
-            newTree.Add(book3);
-
-            var helperArrayResult = new Book[3] { book3, book1, book2 };
+            var helperArrayResult = new Book[3] { inputArray[2], inputArray[0], inputArray[1] };
 
             var index = 0;
 
@@ -365,30 +253,15 @@ namespace BinarySearchTree.Test
 
             Comparison<Book> comparison = null;
 
-            var newTree = new CustomBinarySearchTree<Book>(comparison);
+            var newTree = new BinarySearchTree<Book>(comparison);
 
-            var book1 = new Book("978-0-7356-6745-4", "Jeffrey Richter",
-                "CLR via C#", "Microsoft Press", 2012, 826, new decimal(59.99));
+            newTree.Add(inputArray);
 
-            newTree.Add(book1);
-
-            var book2 = new Book("978-0-7356-6745-8", "Astakhov Mihail",
-                "Axperimental study of the strength",
-                "Bauman MSTU", 2006, 593, new decimal(10.30));
-
-            newTree.Add(book2);
-
-            var book3 = new Book("978-0-7356-6745-1", "Timoshenko Sergey",
-                "Bibration problems in engineering",
-                "Mashinostroenie Publ", 1985, 472, new decimal(30.45));
-
-            newTree.Add(book3);
-
-            var helperArrayResult = new Book[3] { book1, book3, book2 };
+            var helperArrayResult = new Book[3] { inputArray[0], inputArray[2], inputArray[1] };
 
             var index = 0;
 
-            foreach (Book item in newTree.Preorder())
+            foreach (Book item in newTree)
             {
                 Assert.AreEqual(helperArrayResult[index++], item);
             }
@@ -404,26 +277,11 @@ namespace BinarySearchTree.Test
 
             Comparison<Book> comparison = null;
 
-            var newTree = new CustomBinarySearchTree<Book>(comparison);
+            var newTree = new BinarySearchTree<Book>(comparison);
 
-            var book1 = new Book("978-0-7356-6745-4", "Jeffrey Richter",
-                "CLR via C#", "Microsoft Press", 2012, 826, new decimal(59.99));
+            newTree.Add(inputArray);
 
-            newTree.Add(book1);
-
-            var book2 = new Book("978-0-7356-6745-8", "Astakhov Mihail",
-                "Axperimental study of the strength",
-                "Bauman MSTU", 2006, 593, new decimal(10.30));
-
-            newTree.Add(book2);
-
-            var book3 = new Book("978-0-7356-6745-1", "Timoshenko Sergey",
-                "Bibration problems in engineering",
-                "Mashinostroenie Publ", 1985, 472, new decimal(30.45));
-
-            newTree.Add(book3);
-
-            var helperArrayResult = new Book[3] { book3, book2, book1 };
+            var helperArrayResult = new Book[3] { inputArray[2], inputArray[1], inputArray[0] };
 
             var index = 0;
 
@@ -443,26 +301,11 @@ namespace BinarySearchTree.Test
 
             Comparison<Book> comparison = null;
 
-            var newTree = new CustomBinarySearchTree<Book>(comparison);
+            var newTree = new BinarySearchTree<Book>(comparison);
 
-            var book1 = new Book("978-0-7356-6745-4", "Jeffrey Richter",
-                "CLR via C#", "Microsoft Press", 2012, 826, new decimal(59.99));
+            newTree.Add(inputArray);
 
-            newTree.Add(book1);
-
-            var book2 = new Book("978-0-7356-6745-8", "Astakhov Mihail",
-                "Axperimental study of the strength",
-                "Bauman MSTU", 2006, 593, new decimal(10.30));
-
-            newTree.Add(book2);
-
-            var book3 = new Book("978-0-7356-6745-1", "Timoshenko Sergey",
-                "Bibration problems in engineering",
-                "Mashinostroenie Publ", 1985, 472, new decimal(30.45));
-
-            newTree.Add(book3);
-
-            var helperArrayResult = new Book[3] { book3, book1, book2 };
+            var helperArrayResult = new Book[3] { inputArray[2], inputArray[0], inputArray[1] };
 
             var index = 0;
 
@@ -478,30 +321,15 @@ namespace BinarySearchTree.Test
         [Test]
         public void Book_Preorder_CustomBinaryTree_With_Default_Comparer()
         {
-            var newTree = new CustomBinarySearchTree<Book>();
+            var newTree = new BinarySearchTree<Book>();
 
-            var book1 = new Book("978-0-7356-6745-4", "Jeffrey Richter",
-                "CLR via C#", "Microsoft Press", 2012, 826, new decimal(59.99));
+            newTree.Add(inputArray);
 
-            newTree.Add(book1);
-
-            var book2 = new Book("978-0-7356-6745-8", "Astakhov Mihail",
-                "Axperimental study of the strength",
-                "Bauman MSTU", 2006, 593, new decimal(10.30));
-
-            newTree.Add(book2);
-
-            var book3 = new Book("978-0-7356-6745-1", "Timoshenko Sergey",
-                "Bibration problems in engineering",
-                "Mashinostroenie Publ", 1985, 472, new decimal(30.45));
-
-            newTree.Add(book3);
-
-            var helperArrayResult = new Book[3] { book1, book3, book2 };
+            var helperArrayResult = new Book[3] { inputArray[0], inputArray[2], inputArray[1] };
 
             var index = 0;
 
-            foreach (Book item in newTree.Preorder())
+            foreach (Book item in newTree)
             {
                 Assert.AreEqual(helperArrayResult[index++], item);
             }
@@ -513,26 +341,11 @@ namespace BinarySearchTree.Test
         [Test]
         public void Book_Postorder_CustomBinaryTree_With_Default_Comparer()
         {
-            var newTree = new CustomBinarySearchTree<Book>();
+            var newTree = new BinarySearchTree<Book>();
 
-            var book1 = new Book("978-0-7356-6745-4", "Jeffrey Richter",
-                "CLR via C#", "Microsoft Press", 2012, 826, new decimal(59.99));
+            newTree.Add(inputArray);
 
-            newTree.Add(book1);
-
-            var book2 = new Book("978-0-7356-6745-8", "Astakhov Mihail",
-                "Axperimental study of the strength",
-                "Bauman MSTU", 2006, 593, new decimal(10.30));
-
-            newTree.Add(book2);
-
-            var book3 = new Book("978-0-7356-6745-1", "Timoshenko Sergey",
-                "Bibration problems in engineering",
-                "Mashinostroenie Publ", 1985, 472, new decimal(30.45));
-
-            newTree.Add(book3);
-
-            var helperArrayResult = new Book[3] { book3, book2, book1 };
+            var helperArrayResult = new Book[3] { inputArray[2], inputArray[1], inputArray[0] };
 
             var index = 0;
 
@@ -548,26 +361,11 @@ namespace BinarySearchTree.Test
         [Test]
         public void Book_Inorder_CustomBinaryTree_With_Default_Comparer()
         {
-            var newTree = new CustomBinarySearchTree<Book>();
+            var newTree = new BinarySearchTree<Book>();
 
-            var book1 = new Book("978-0-7356-6745-4", "Jeffrey Richter",
-                "CLR via C#", "Microsoft Press", 2012, 826, new decimal(59.99));
+            newTree.Add(inputArray);
 
-            newTree.Add(book1);
-
-            var book2 = new Book("978-0-7356-6745-8", "Astakhov Mihail",
-                "Axperimental study of the strength",
-                "Bauman MSTU", 2006, 593, new decimal(10.30));
-
-            newTree.Add(book2);
-
-            var book3 = new Book("978-0-7356-6745-1", "Timoshenko Sergey",
-                "Bibration problems in engineering",
-                "Mashinostroenie Publ", 1985, 472, new decimal(30.45));
-
-            newTree.Add(book3);
-
-            var helperArrayResult = new Book[3] { book3, book1, book2 };
+            var helperArrayResult = new Book[3] { inputArray[2], inputArray[0], inputArray[1] };
 
             var index = 0;
 
@@ -578,31 +376,18 @@ namespace BinarySearchTree.Test
         }
 
         /// <summary>
-        /// Test add new item in CustomBinaryTree when expected InvalidOperationException
+        /// Test Search item in BinarySearchTree if T is type Book
         /// </summary>
         [Test]
-        public void Book_Add_New_Element_With_Duplicates_Expected_InvalidOperationException()
+        public void Book_Contains_CustomBinaryTree()
         {
-            var newTree = new CustomBinarySearchTree<Book>();
+            var newTree = new BinarySearchTree<Book>(inputArray);
 
-            var book1 = new Book("978-0-7356-6745-4", "Jeffrey Richter",
-                "CLR via C#", "Microsoft Press", 2012, 826, new decimal(59.99));
+            Assert.IsTrue(newTree.Contains(inputArray[0]));
 
-            newTree.Add(book1);
-
-            var book2 = new Book("978-0-7356-6745-8", "Astakhov Mihail",
-                "Axperimental study of the strength",
-                "Bauman MSTU", 2006, 593, new decimal(10.30));
-
-            newTree.Add(book2);
-
-            var book3 = new Book("978-0-7356-6745-1", "Timoshenko Sergey",
+            Assert.IsFalse(newTree.Contains(new Book("978-0-7356-6745-2", "Timoshenko Sergey",
                 "Bibration problems in engineering",
-                "Mashinostroenie Publ", 1985, 472, new decimal(30.45));
-
-            newTree.Add(book3);
-
-            Assert.Throws<InvalidOperationException>(() => newTree.Add(book3));
+                "Mashinostroenie Publ", 1985, 472, new decimal(30.45))));
         }
     }
 }

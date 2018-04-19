@@ -1,15 +1,17 @@
 ﻿using System;
 using NUnit.Framework;
-using BinarySearchTree;
+using CustomBinarySearchTree;
 
 namespace BinarySearchTree.Test
 {
     /// <summary>
-    /// Class test CustomBinarySearchTree with string
+    /// Class test BinarySearchTree with string
     /// </summary>
     [TestFixture]
     public class SystemStringTest
     {
+        private string[] inputArray = new String[7] {"three", "two", "midnight", "s", "note", "second", "cigarette"};
+
         /// <summary>
         /// Test bypass CustomBinarySearch in a direct order with IComparer
         /// </summary>
@@ -18,21 +20,15 @@ namespace BinarySearchTree.Test
         {
             var comparer = new StringComparator();
 
-            var newTree = new CustomBinarySearchTree<string>(comparer);
+            var newTree = new BinarySearchTree<string>(comparer);
 
-            newTree.Add("three");
-            newTree.Add("two");
-            newTree.Add("midnight");
-            newTree.Add("s");
-            newTree.Add("note");
-            newTree.Add("second");
-            newTree.Add("cigarette");
+            newTree.Add(inputArray);
 
             var helperArrayResult = new string[7] { "three", "two", "s", "note", "midnight", "second", "cigarette" };
 
             var index = 0;
 
-            foreach (string item in newTree.Preorder())
+            foreach (string item in newTree)
             {
                 Assert.AreEqual(helperArrayResult[index++], item);
             }
@@ -46,15 +42,9 @@ namespace BinarySearchTree.Test
         {
             var comparer = new StringComparator();
 
-            var newTree = new CustomBinarySearchTree<string>(comparer);
+            var newTree = new BinarySearchTree<string>(comparer);
 
-            newTree.Add("three");
-            newTree.Add("two");
-            newTree.Add("midnight");
-            newTree.Add("s");
-            newTree.Add("note");
-            newTree.Add("second");
-            newTree.Add("cigarette");
+            newTree.Add(inputArray);
 
             var helperArrayResult = new string[7] { "s", "note", "two", "second", "cigarette", "midnight", "three" };
 
@@ -74,15 +64,9 @@ namespace BinarySearchTree.Test
         {
             var comparer = new StringComparator();
 
-            var newTree = new CustomBinarySearchTree<string>(comparer);
+            var newTree = new BinarySearchTree<string>(comparer);
 
-            newTree.Add("three");
-            newTree.Add("two");
-            newTree.Add("midnight");
-            newTree.Add("s");
-            newTree.Add("note");
-            newTree.Add("second");
-            newTree.Add("cigarette");
+            newTree.Add(inputArray);
 
             var helperArrayResult = new string[7] { "s", "two", "note", "three", "second", "midnight", "cigarette" };
 
@@ -104,22 +88,15 @@ namespace BinarySearchTree.Test
 
             Comparison<string> comparison = comparer.Compare;
 
-            var newTree = new CustomBinarySearchTree<string>(comparison);
+            var newTree = new BinarySearchTree<string>(comparison);
 
-            newTree.Add("three");
-            newTree.Add("two");
-            newTree.Add("midnight");
-            newTree.Add("s");
-            newTree.Add("note");
-            newTree.Add("second");
-            newTree.Add("cigarette");
-
+            newTree.Add(inputArray);
 
             var helperArrayResult = new string[7] { "three", "two", "s", "note", "midnight", "second", "cigarette" };
 
             var index = 0;
 
-            foreach (string item in newTree.Preorder())
+            foreach (string item in newTree)
             {
                 Assert.AreEqual(helperArrayResult[index++], item);
             }
@@ -135,15 +112,9 @@ namespace BinarySearchTree.Test
 
             Comparison<string> comparison = comparer.Compare;
 
-            var newTree = new CustomBinarySearchTree<string>(comparison);
+            var newTree = new BinarySearchTree<string>(comparison);
 
-            newTree.Add("three");
-            newTree.Add("two");
-            newTree.Add("midnight");
-            newTree.Add("s");
-            newTree.Add("note");
-            newTree.Add("second");
-            newTree.Add("cigarette");
+            newTree.Add(inputArray);
 
             var helperArrayResult = new string[7] { "s", "note", "two", "second", "cigarette", "midnight", "three" };
 
@@ -165,15 +136,9 @@ namespace BinarySearchTree.Test
 
             Comparison<string> comparison = comparer.Compare;
 
-            var newTree = new CustomBinarySearchTree<string>(comparison);
+            var newTree = new BinarySearchTree<string>(comparison);
 
-            newTree.Add("three");
-            newTree.Add("two");
-            newTree.Add("midnight");
-            newTree.Add("s");
-            newTree.Add("note");
-            newTree.Add("second");
-            newTree.Add("cigarette");
+            newTree.Add(inputArray);
 
             var helperArrayResult = new string[7] { "s", "two", "note", "three", "second", "midnight", "cigarette" };
 
@@ -195,22 +160,15 @@ namespace BinarySearchTree.Test
 
             comparer = null;
 
-            var newTree = new CustomBinarySearchTree<string>(comparer);
+            var newTree = new BinarySearchTree<string>(comparer);
 
-            newTree.Add("three");
-            newTree.Add("two");
-            newTree.Add("midnight");
-            newTree.Add("s");
-            newTree.Add("note");
-            newTree.Add("second");
-            newTree.Add("cigarette");
+            newTree.Add(inputArray);
 
-
-            var helperArrayResult = new string[7] { "three", "two", "s", "note", "midnight", "second", "cigarette" };
+            var helperArrayResult = new string[7] { "three", "midnight", "cigarette", "s", "note", "second", "two" };
 
             var index = 0;
 
-            foreach (string item in newTree.Preorder())
+            foreach (string item in newTree)
             {
                 Assert.AreEqual(helperArrayResult[index++], item);
             }
@@ -226,17 +184,11 @@ namespace BinarySearchTree.Test
 
             comparer = null;
 
-            var newTree = new CustomBinarySearchTree<string>(comparer);
+            var newTree = new BinarySearchTree<string>(comparer);
 
-            newTree.Add("three");
-            newTree.Add("two");
-            newTree.Add("midnight");
-            newTree.Add("s");
-            newTree.Add("note");
-            newTree.Add("second");
-            newTree.Add("cigarette");
+            newTree.Add(inputArray);
 
-            var helperArrayResult = new string[7] { "s", "note", "two", "second", "cigarette", "midnight", "three" };
+            var helperArrayResult = new string[7] { "cigarette", "note", "second", "s", "midnight", "two", "three" };
 
             var index = 0;
 
@@ -256,20 +208,14 @@ namespace BinarySearchTree.Test
 
             comparer = null;
 
-            var newTree = new CustomBinarySearchTree<string>(comparer);
+            var newTree = new BinarySearchTree<string>(comparer);
 
-            newTree.Add("three");
-            newTree.Add("two");
-            newTree.Add("midnight");
-            newTree.Add("s");
-            newTree.Add("note");
-            newTree.Add("second");
-            newTree.Add("cigarette");
+            newTree.Add(inputArray);
 
-            var helperArrayResult = new string[7] { "s", "two", "note", "three", "second", "midnight", "cigarette" };
+            var helperArrayResult = new string[7] { "cigarette", "midnight", "note", "s", "second", "three", "two" };
 
             var index = 0;
-
+            
             foreach (string item in newTree.Inorder())
             {
                 Assert.AreEqual(helperArrayResult[index++], item);
@@ -286,21 +232,15 @@ namespace BinarySearchTree.Test
 
             Comparison<string> comparison = null;
 
-            var newTree = new CustomBinarySearchTree<string>(comparison);
+            var newTree = new BinarySearchTree<string>(comparison);
 
-            newTree.Add("three");
-            newTree.Add("two");
-            newTree.Add("midnight");
-            newTree.Add("s");
-            newTree.Add("note");
-            newTree.Add("second");
-            newTree.Add("cigarette");
+            newTree.Add(inputArray);
 
-            var helperArrayResult = new string[7] { "three", "two", "s", "note", "midnight", "second", "cigarette" };
+            var helperArrayResult = new string[7] { "three", "midnight", "cigarette", "s", "note", "second", "two" };
 
             var index = 0;
 
-            foreach (string item in newTree.Preorder())
+            foreach (string item in newTree)
             {
                 Assert.AreEqual(helperArrayResult[index++], item);
             }
@@ -316,17 +256,11 @@ namespace BinarySearchTree.Test
 
             Comparison<string> comparison = null;
 
-            var newTree = new CustomBinarySearchTree<string>(comparison);
+            var newTree = new BinarySearchTree<string>(comparison);
 
-            newTree.Add("three");
-            newTree.Add("two");
-            newTree.Add("midnight");
-            newTree.Add("s");
-            newTree.Add("note");
-            newTree.Add("second");
-            newTree.Add("cigarette");
+            newTree.Add(inputArray);
 
-            var helperArrayResult = new string[7] { "s", "note", "two", "second", "cigarette", "midnight", "three" };
+            var helperArrayResult = new string[7] { "cigarette", "note", "second", "s", "midnight", "two", "three" };
 
             var index = 0;
 
@@ -346,23 +280,17 @@ namespace BinarySearchTree.Test
 
             Comparison<string> comparison = null;
 
-            var newTree = new CustomBinarySearchTree<string>(comparison);
+            var newTree = new BinarySearchTree<string>(comparison);
 
-            newTree.Add("three");
-            newTree.Add("two");
-            newTree.Add("midnight");
-            newTree.Add("s");
-            newTree.Add("note");
-            newTree.Add("second");
-            newTree.Add("cigarette");
+            newTree.Add(inputArray);
 
-            var helperArrayResult = new string[7] { "s", "two", "note", "three", "second", "midnight", "cigarette" };
+            var helperArrayResult = new string[7] { "cigarette", "midnight", "note", "s", "second", "three", "two" };
 
             var index = 0;
 
             foreach (string item in newTree.Inorder())
             {
-                Assert.AreEqual(helperArrayResult[index], item);
+                Assert.AreEqual(helperArrayResult[index++], item);
             }
         }
 
@@ -372,21 +300,15 @@ namespace BinarySearchTree.Test
         [Test]
         public void String_Preorder_CustomBinaryTree_With_Default_Comparer()
         {
-            var newTree = new CustomBinarySearchTree<string>();
+            var newTree = new BinarySearchTree<string>();
 
-            newTree.Add("three");
-            newTree.Add("two");
-            newTree.Add("midnight");
-            newTree.Add("s");
-            newTree.Add("note");
-            newTree.Add("second");
-            newTree.Add("cigarette");
+            newTree.Add(inputArray);
 
-            var helperArrayResult = new string[7] { "three", "two", "s", "note", "midnight", "second", "cigarette" };
+            var helperArrayResult = new string[7] { "three", "midnight", "cigarette", "s", "note", "second", "two" };
 
             var index = 0;
 
-            foreach (string item in newTree.Preorder())
+            foreach (string item in newTree)
             {
                 Assert.AreEqual(helperArrayResult[index++], item);
             }
@@ -398,17 +320,11 @@ namespace BinarySearchTree.Test
         [Test]
         public void String_Postorder_CustomBinaryTree_With_Default_Comparer()
         {
-            var newTree = new CustomBinarySearchTree<string>();
+            var newTree = new BinarySearchTree<string>();
 
-            newTree.Add("three");
-            newTree.Add("two");
-            newTree.Add("midnight");
-            newTree.Add("s");
-            newTree.Add("note");
-            newTree.Add("second");
-            newTree.Add("cigarette");
+            newTree.Add(inputArray);
 
-            var helperArrayResult = new string[7] { "s", "note", "two", "second", "cigarette", "midnight", "three" };
+            var helperArrayResult = new string[7] { "cigarette", "note", "second", "s", "midnight", "two", "three" };
 
             var index = 0;
 
@@ -424,17 +340,11 @@ namespace BinarySearchTree.Test
         [Test]
         public void String_Inorder_CustomBinaryTree_With_Default_Comparer()
         {
-            var newTree = new CustomBinarySearchTree<string>();
+            var newTree = new BinarySearchTree<string>();
 
-            newTree.Add("three");
-            newTree.Add("two");
-            newTree.Add("midnight");
-            newTree.Add("s");
-            newTree.Add("note");
-            newTree.Add("second");
-            newTree.Add("cigarette");
+            newTree.Add(inputArray);
 
-            var helperArrayResult = new string[7] { "s", "two", "note", "three", "second", "midnight", "cigarette" };
+            var helperArrayResult = new string[7] { "cigarette", "midnight", "note", "s", "second", "three", "two" };
 
             var index = 0;
 
@@ -445,22 +355,16 @@ namespace BinarySearchTree.Test
         }
 
         /// <summary>
-        /// Test add new item in CustomBinaryTree when expected InvalidOperationException
+        /// Test Search item in BinarySearchTree if T is type string
         /// </summary>
         [Test]
-        public void String_Add_New_Element_With_Duplicates_Expected_InvalidOperationException()
+        public void String_Contains_CustomBinaryTree()
         {
-            var newTree = new CustomBinarySearchTree<string>();
+            var newTree = new BinarySearchTree<string>(inputArray);
 
-            newTree.Add("three");
-            newTree.Add("two");
-            newTree.Add("midnight");
-            newTree.Add("s");
-            newTree.Add("note");
-            newTree.Add("second");
-            newTree.Add("cigarette");
+            Assert.IsTrue(newTree.Contains("note"));
 
-            Assert.Throws<InvalidOperationException>(() => newTree.Add("file"));
+            Assert.IsFalse(newTree.Contains("flour"));
         }
     }
 }

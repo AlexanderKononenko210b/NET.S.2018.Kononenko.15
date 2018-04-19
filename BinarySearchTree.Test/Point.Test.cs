@@ -1,14 +1,17 @@
 ﻿using System;
 using NUnit.Framework;
+using CustomBinarySearchTree;
 
 namespace BinarySearchTree.Test
 {
     /// <summary>
-    /// Class test CustomBinarySearchTree with struct Point
+    /// Class test BinarySearchTree with struct Point
     /// </summary>
     [TestFixture]
     public class PointTest
     {
+        private Point[] inputArray = new Point[3] { new Point(14.0, 5.0), new Point(22.0, 5.0), new Point(2.0, 5.0) };
+
         /// <summary>
         /// Test bypass CustomBinarySearch in a direct order with IComparer
         /// </summary>
@@ -17,25 +20,15 @@ namespace BinarySearchTree.Test
         {
             var comparer = new PointComparator();
 
-            var newTree = new CustomBinarySearchTree<Point>(comparer);
+            var newTree = new BinarySearchTree<Point>(comparer);
 
-            var point1 = new Point(14.0, 5.0);
+            newTree.Add(inputArray);
 
-            newTree.Add(point1);
-
-            var point2 = new Point(22.0, 5.0);
-
-            newTree.Add(point2);
-
-            var point3 = new Point(2.0, 5.0);
-
-            newTree.Add(point3);
-
-            var helperArrayResult = new Point[3] { point1, point3, point2 };
+            var helperArrayResult = new Point[3] { inputArray[0], inputArray[2], inputArray[1] };
 
             var index = 0;
 
-            foreach (Point item in newTree.Preorder())
+            foreach (Point item in newTree)
             {
                 Assert.AreEqual(helperArrayResult[index++], item);
             }
@@ -49,21 +42,11 @@ namespace BinarySearchTree.Test
         {
             var comparer = new PointComparator();
 
-            var newTree = new CustomBinarySearchTree<Point>(comparer);
+            var newTree = new BinarySearchTree<Point>(comparer);
 
-            var point1 = new Point(14.0, 5.0);
+            newTree.Add(inputArray);
 
-            newTree.Add(point1);
-
-            var point2 = new Point(22.0, 5.0);
-
-            newTree.Add(point2);
-
-            var point3 = new Point(2.0, 5.0);
-
-            newTree.Add(point3);
-
-            var helperArrayResult = new Point[3] { point3, point2, point1 };
+            var helperArrayResult = new Point[3] { inputArray[2], inputArray[1], inputArray[0] };
 
             var index = 0;
 
@@ -81,21 +64,11 @@ namespace BinarySearchTree.Test
         {
             var comparer = new PointComparator();
 
-            var newTree = new CustomBinarySearchTree<Point>(comparer);
+            var newTree = new BinarySearchTree<Point>(comparer);
 
-            var point1 = new Point(14.0, 5.0);
+            newTree.Add(inputArray);
 
-            newTree.Add(point1);
-
-            var point2 = new Point(22.0, 5.0);
-
-            newTree.Add(point2);
-
-            var point3 = new Point(2.0, 5.0);
-
-            newTree.Add(point3);
-
-            var helperArrayResult = new Point[3] { point3, point1, point2 };
+            var helperArrayResult = new Point[3] { inputArray[2], inputArray[0], inputArray[1] };
 
             var index = 0;
 
@@ -115,25 +88,15 @@ namespace BinarySearchTree.Test
 
             Comparison<Point> comparison = comparer.Compare;
 
-            var newTree = new CustomBinarySearchTree<Point>(comparison);
+            var newTree = new BinarySearchTree<Point>(comparison);
 
-            var point1 = new Point(14.0, 5.0);
+            newTree.Add(inputArray);
 
-            newTree.Add(point1);
-
-            var point2 = new Point(22.0, 5.0);
-
-            newTree.Add(point2);
-
-            var point3 = new Point(2.0, 5.0);
-
-            newTree.Add(point3);
-
-            var helperArrayResult = new Point[3] { point1, point3, point2 };
+            var helperArrayResult = new Point[3] { inputArray[0], inputArray[2], inputArray[1] };
 
             var index = 0;
 
-            foreach (Point item in newTree.Preorder())
+            foreach (Point item in newTree)
             {
                 Assert.AreEqual(helperArrayResult[index], item);
 
@@ -151,21 +114,11 @@ namespace BinarySearchTree.Test
 
             Comparison<Point> comparison = comparer.Compare;
 
-            var newTree = new CustomBinarySearchTree<Point>(comparison);
+            var newTree = new BinarySearchTree<Point>(comparison);
 
-            var point1 = new Point(14.0, 5.0);
+            newTree.Add(inputArray);
 
-            newTree.Add(point1);
-
-            var point2 = new Point(22.0, 5.0);
-
-            newTree.Add(point2);
-
-            var point3 = new Point(2.0, 5.0);
-
-            newTree.Add(point3);
-
-            var helperArrayResult = new Point[3] { point3, point2, point1 };
+            var helperArrayResult = new Point[3] { inputArray[2], inputArray[1], inputArray[0] };
 
             var index = 0;
 
@@ -185,21 +138,11 @@ namespace BinarySearchTree.Test
 
             Comparison<Point> comparison = comparer.Compare;
 
-            var newTree = new CustomBinarySearchTree<Point>(comparison);
+            var newTree = new BinarySearchTree<Point>(comparison);
 
-            var point1 = new Point(14.0, 5.0);
+            newTree.Add(inputArray);
 
-            newTree.Add(point1);
-
-            var point2 = new Point(22.0, 5.0);
-
-            newTree.Add(point2);
-
-            var point3 = new Point(2.0, 5.0);
-
-            newTree.Add(point3);
-
-            var helperArrayResult = new Point[3] { point3, point1, point2 };
+            var helperArrayResult = new Point[3] { inputArray[2], inputArray[0], inputArray[1] };
 
             var index = 0;
 
@@ -207,6 +150,21 @@ namespace BinarySearchTree.Test
             {
                 Assert.AreEqual(helperArrayResult[index++], item);
             }
+        }
+
+        /// <summary>
+        /// Test Search item in BinarySearchTree if T is type Point
+        /// </summary>
+        [Test]
+        public void Point_Contains_CustomBinaryTree()
+        {
+            var comparer = new PointComparator();
+
+            var newTree = new BinarySearchTree<Point>(inputArray, comparer);
+
+            Assert.IsTrue(newTree.Contains(inputArray[0]));
+
+            Assert.IsFalse(newTree.Contains(new Point(12.0, 5.0)));
         }
     }
 }

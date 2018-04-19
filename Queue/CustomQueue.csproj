@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{301E6F33-82D5-454F-A32E-B8F8AA704DE6}</ProjectGuid>
+    <ProjectGuid>{79F72142-AB50-4763-BF77-379F2D34E96E}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>BinarySearchTree</RootNamespace>
-    <AssemblyName>BinarySearchTree</AssemblyName>
+    <RootNamespace>Queue</RootNamespace>
+    <AssemblyName>Queue</AssemblyName>
     <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -40,7 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CustomBinarySearchTree.cs" />
+    <Compile Include="Queue.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

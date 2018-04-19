@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,11 +14,7 @@ namespace BinarySearchTree.Test
     {
         public int Compare(int first, int second)
         {
-            if (first == second)
-                return 0;
-            else if (first < second)
-                return -1;
-            else return 1;
+            return first - second;
         }
     }
 
@@ -28,17 +25,13 @@ namespace BinarySearchTree.Test
     {
         public int Compare(string first, string second)
         {
-            if (first == null && second == null)
-                return 0;
-            if (first == null)
-                return -1;
-            if (second == null)
-                return 1;
-            if (first.Length == second.Length)
-                return 0;
-            if (first.Length < second.Length)
-                return -1;
-            return 1;
+            if (first == null && second == null) return 0;
+
+            if (first == null) return -1;
+
+            if (second == null) return 1;
+
+            return first.Length - second.Length;
         }
     }
 
@@ -49,20 +42,13 @@ namespace BinarySearchTree.Test
     {
         public int Compare(Book first, Book second)
         {
-            if (first == null && second == null)
-                return 0;
+            if (first == null && second == null) return 0;
 
             if (first == null) return -1;
 
             if (second == null) return 1;
 
-            if (first.GetNumberBook() == second.GetNumberBook())
-                return 0;
-
-            if (first.GetNumberBook() < second.GetNumberBook())
-                return -1;
-
-            return 1;
+            return first.GetNumberBook() - second.GetNumberBook();
         }
     }
 
@@ -73,13 +59,24 @@ namespace BinarySearchTree.Test
     {
         public int Compare(Point first, Point second)
         {
-            if (first.x == second.x)
-                return 0;
+            try
+            {
+                var appSettingsReader = new AppSettingsReader();
 
-            if (first.x < second.x)
-                return -1;
+                var accuracy = (double)appSettingsReader.GetValue("accuracy", typeof(double));
 
-            return 1;
+                if (Math.Abs(first.x - second.x) < accuracy)
+                    return 0;
+
+                if (first.x < second.y)
+                    return -1;
+
+                return 1;
+            }
+            catch
+            {
+                throw new InvalidOperationException($"Invalide operation get accuracy");
+            }
         }
     }
 }
