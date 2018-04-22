@@ -122,10 +122,7 @@ namespace CustomMatrix.Matrix
 
             baseMatrix = new T[size, size];
 
-            if (size <= inputSquareMatrix.GetUpperBound(0))
-                Array.Copy(inputSquareMatrix, baseMatrix, baseMatrix.Length);
-            else
-                Array.Copy(inputSquareMatrix, baseMatrix, inputSquareMatrix.Length);
+            Array.Copy(inputSquareMatrix, baseMatrix, baseMatrix.Length);
 
             MatrixChanged += CheckChangeEventHandler;
         }
