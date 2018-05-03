@@ -1,6 +1,6 @@
 ﻿using System;
-using CustomMatrix.Exceptions;
 using CustomMatrix.Matrix;
+using CustomMatrix.Exceptions;
 using NUnit.Framework;
 
 namespace CustomMatrix.Test
@@ -39,14 +39,14 @@ namespace CustomMatrix.Test
         }
 
         /// <summary>
-        /// Create instance typeof SimmetricSquareMatrix using exiting matrix expected ArgumentNullException
+        /// Create instance typeof SimmetricSquareMatrix using exiting matrix expected BorderPropertyException
         /// </summary>
         [TestCase]
-        public void SimmetricMatrix_Create_Instance_Input_Matrix_Expected_ArgumentNullException()
+        public void SimmetricMatrix_Create_Instance_Input_Matrix_Expected_BorderPropertyException_If_Argument_Null()
         {
             int[,] inputArray = null;
 
-            Assert.Throws<ArgumentNullException>(() => new SimmetricSquareMatrix<int>(inputArray));
+            Assert.Throws<BorderPropertyException>(() => new SimmetricSquareMatrix<int>(inputArray));
         }
 
         /// <summary>
@@ -72,42 +72,29 @@ namespace CustomMatrix.Test
         }
 
         /// <summary>
-        /// Change instance typeof SquareMatrix expected ArgumentOutOfRangeException
+        /// Change instance typeof SquareMatrix expected IndexAccessException
         /// </summary>
         [TestCase]
-        public void SimmetricMatrix_Change_Element_Expected_ArgumentOutOfRangeException_If_IndexRow_Less_0()
+        public void SimmetricMatrix_Change_Element_Expected_IndexAccessException_If_IndexRow_Less_0()
         {
             int[,] inputArray = { { 4, 2, 3 }, { 2, 2, 5 }, { 3, 5, 2 } };
 
             var matrix = new SimmetricSquareMatrix<int>(inputArray);
 
-            Assert.Throws<ArgumentOutOfRangeException>(() => matrix[-1, 4] = 5);
+            Assert.Throws<IndexAccessException>(() => matrix[-1, 4] = 5);
         }
 
         /// <summary>
-        /// Change instance typeof SquareMatrix expected ArgumentOutOfRangeException
+        /// Change instance typeof SquareMatrix expected IndexAccessException
         /// </summary>
         [TestCase]
-        public void SimmetricMatrix_Change_Element_Expected_ArgumentOutOfRangeException_If_IndexColumn_Less_0()
+        public void SimmetricMatrix_Change_Element_Expected_IndexAccessException_If_IndexColumn_Less_0()
         {
             int[,] inputArray = { { 4, 2, 3 }, { 2, 2, 5 }, { 3, 5, 2 } };
 
             var matrix = new SimmetricSquareMatrix<int>(inputArray);
 
-            Assert.Throws<ArgumentOutOfRangeException>(() => matrix[0, -1] = 5);
-        }
-
-        /// <summary>
-        /// Change instance typeof SquareMatrix expected InvalidOperationException
-        /// </summary>
-        [TestCase]
-        public void SimmetricMatrix_Change_Element_Expected_InvalidOperationException_If_Value_Violates_Requirements_Insertion()
-        {
-            int[,] inputArray = { { 4, 2, 3 }, { 2, 2, 5 }, { 3, 5, 2 } };
-
-            var matrix = new SimmetricSquareMatrix<int>(inputArray);
-
-            Assert.Throws<InvalidOperationException>(() => matrix[1, 2] = 4);
+            Assert.Throws<IndexAccessException>(() => matrix[0, -1] = 5);
         }
     }
 }

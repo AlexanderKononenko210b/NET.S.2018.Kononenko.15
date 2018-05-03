@@ -13,92 +13,162 @@ namespace CustomMatrix.Matrix
     /// </summary>
     public class SimmetricSquareMatrix<T> : BaseMatrix<T>
     {
+        #region Field
+
+        private T[][] matrix;
+
+        #endregion
+
         #region Constructors
 
         /// <summary>
-        /// Constructor for create new simmetric square matrix using size
+        /// Constructor for create new square two range matrix
         /// </summary>
-        /// <param name="size">size of matrix</param>
-        public SimmetricSquareMatrix(int size) : base(size) { }
+        /// <param name="size">size square matrix</param>
+        public SimmetricSquareMatrix(int size)
+        {
+            this.Size = size;
+
+            this.matrix = new T[Size][];
+
+            for(int i = 0; i < Size; i++)
+                matrix[i] = new T[Size - i];
+
+            this.MatrixChanged += CheckChangeEventHandler;
+        }
 
         /// <summary>
-        /// Constructor for create new simmetric square matrix using size and existing matrix
+        /// Constructor for create new square two range matrix based on existing square matrix
         /// </summary>
-        /// <param name="inputMatrix">existing matrix</param>
-        public SimmetricSquareMatrix(T[,] inputMatrix) : base(inputMatrix) { }
+        /// <param name="inputMatrix">existing square matrix</param>
+        public SimmetricSquareMatrix(T[,] inputMatrix)
+        {
+            var verify = IsValidInputMatrix(inputMatrix);
+
+            if (!verify.Item1)
+                throw new BorderPropertyException(verify.Item2);
+
+            this.Size = (int)Math.Sqrt(inputMatrix.Length);
+
+            this.matrix = new T[Size][];
+
+            for (int i = 0; i < Size; i++)
+                matrix[i] = new T[Size - i];
+
+            for (int i = 0; i <= inputMatrix.GetUpperBound(0); i++)
+                for (int j = i; j <= inputMatrix.GetUpperBound(1); j++)
+                    matrix[i][j - i] = inputMatrix[i, j];
+
+            this.MatrixChanged += CheckChangeEventHandler;
+        }
 
         #endregion Constructors
 
         #region Public Api
 
         /// <summary>
-        /// Override method Accept
+        /// Indexer for access element in matrix
         /// </summary>
-        /// <param name="visitor"></param>
-        public override void Accept(IMatrixVisitor<T> visitor)
+        /// <param name="indexRow">row of matrix</param>
+        /// <param name="indexColumn">column of matrix</param>
+        /// <returns>element in matrix</returns>
+        public override T this[int indexRow, int indexColumn]
         {
-            visitor.Visit(this);
+            get
+            {
+                var verify = IsVerifyAccessIndex(indexRow, indexColumn);
+
+                if (!verify.Item1)
+                    throw new IndexAccessException(verify.Item2);
+
+                if (indexRow == indexColumn)
+                    return matrix[indexRow][0];
+
+                if (indexRow < indexColumn)
+                    return matrix[indexRow][indexColumn - indexRow];
+
+                return matrix[indexColumn][indexRow - indexColumn];
+            }
+            set
+            {
+                var verify = IsVerifyAccessIndex(indexRow, indexColumn);
+
+                if (!verify.Item1)
+                    throw new IndexAccessException(verify.Item2);
+
+                if (indexRow == indexColumn)
+                    matrix[indexRow][0] = value;
+
+                else if (indexRow < indexColumn)
+                {
+                    matrix[indexRow][indexColumn - indexRow] = value;
+
+                    matrix[indexColumn - indexRow][indexRow] = value;
+                }
+                else
+                {
+                    matrix[indexColumn][indexRow - indexColumn] = value;
+
+                    matrix[indexRow - indexColumn][indexColumn] = value;
+                }
+
+                OnMatrixChanged(new MatrixChangedEventArgs(indexRow, indexColumn));
+            }
         }
 
         #endregion
 
-        #region Protected members
+        #region Protected and private members
 
         /// <summary>
         /// Handler if event changed
         /// </summary>
         /// <param name="sender">object started event</param>
         /// <param name="info">info about event</param>
-        protected override void CheckChangeEventHandler(object sender, MatrixChangedEventArgs info)
+        protected void CheckChangeEventHandler(object sender, MatrixChangedEventArgs info)
         {
-            var printService = new PrintService();
-
-            printService.Print($"Simmetric square matrix was changed. Changed element row: {info.Row} column: {info.Column}");
+            PrintService.Print($"Simmetric square matrix was changed. Changed element row: {info.Row} column: {info.Column}");
         }
 
         /// <summary>
         /// Override method for check input matrix
         /// </summary>
         /// <returns>true if input matrix is valid</returns>
-        protected override bool IsValidInputMatrix(T[,] inputMatrix)
+        protected override (bool, string) IsValidInputMatrix(T[,] inputMatrix)
         {
+            if (inputMatrix == null)
+                return (false, $"Argument {nameof(inputMatrix)} is null");
+
+            if (inputMatrix.GetUpperBound(0) != inputMatrix.GetUpperBound(1))
+                return (false, $"Input matrix {nameof(inputMatrix)} is not square");
+
             var equalityComparer = EqualityComparer<T>.Default;
 
             for (int i = 0; i < inputMatrix.GetUpperBound(0); i++)
-            {
                 for (int j = i + 1; j <= inputMatrix.GetUpperBound(1); j++)
-                {
                     if (!equalityComparer.Equals(inputMatrix[i, j], inputMatrix[j, i]))
-                        return false;
-                }
-            }
+                        return (false, $"Input matrix {nameof(inputMatrix)} is not simmetric");
 
-            return true;
+            return (true, $"Input matrix {nameof(inputMatrix)} is valid");
         }
 
         /// <summary>
         /// Override method for check change matrix
         /// </summary>
-        /// <param name="row">index row for change</param>
-        /// <param name="column">index column for change</param>
-        /// <param name="obj">object for insert</param>
-        /// <returns>true if change is valid</returns>
-        protected override bool IsVerificationChangeMatrix(int row, int column, T obj)
+        /// <param name="indexRow">index row for change</param>
+        /// <param name="indexColumn">index column for change</param>
+        /// <returns>true if index is valid</returns>
+        private (bool, string) IsVerifyAccessIndex(int indexRow, int indexColumn)
         {
-            if(obj == null)
-                throw new ArgumentNullException($"Argument {nameof(obj)} is null");
+            if (indexRow > Size - 1 || indexRow < 0)
+                return (false, $"Argument {nameof(indexRow)} is not valid");
 
-            if (row != column)
-            {
-                var equalityComparer = EqualityComparer<T>.Default;
+            if (indexColumn > Size - 1 || indexColumn < 0)
+                return (false, $"Argument {nameof(indexColumn)} is not valid");
 
-                if (!equalityComparer.Equals(this[column, row], obj))
-                    return false;
-            }
-
-            return true;
+            return (true, $"Argument {nameof(indexColumn)} and {nameof(indexRow)} is valid");
         }
 
-        #endregion Protected members
+        #endregion Protected and private members
     }
 }

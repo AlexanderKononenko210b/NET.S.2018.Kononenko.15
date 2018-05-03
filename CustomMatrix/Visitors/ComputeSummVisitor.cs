@@ -12,7 +12,7 @@ namespace CustomMatrix.Visitors
     /// Visitor class for summ two matrix
     /// </summary>
     /// <typeparam name="T">type element in matrix</typeparam>
-    public class ComputeSummVisitor<T> : IMatrixVisitor<T>
+    public class ComputeSummVisitor<T> : MatrixVisitor<T>
     {
         #region Fields
 
@@ -64,17 +64,14 @@ namespace CustomMatrix.Visitors
         /// <summary>
         /// Method Visit in common
         /// </summary>
-        /// <param name="baseMatrix">instance class for summ operation</param>
-        public void Visit(BaseMatrix<T> baseMatrix)
-        {
-            baseMatrix.Accept(this);
-        }
+        /// <param name="matrix">instance class for summ operation</param>
+        public void DynamicVisit(BaseMatrix<T> matrix) => Visit((dynamic) matrix);
 
-        SquareMatrix<T> IMatrixVisitor<T>.Visit(SquareMatrix<T> square) => Summ(square);
+        protected override SquareMatrix<T> Visit(SquareMatrix<T> square) => Summ(square);
 
-        SquareMatrix<T> IMatrixVisitor<T>.Visit(SimmetricSquareMatrix<T> simmetric) => Summ(simmetric);
+        protected override SquareMatrix<T> Visit(SimmetricSquareMatrix<T> simmetric) => Summ(simmetric);
 
-        SquareMatrix<T> IMatrixVisitor<T>.Visit(DiagonalSquareMatrix<T> diagonal) => Summ(diagonal);
+        protected override SquareMatrix<T> Visit(DiagonalSquareMatrix<T> diagonal) => Summ(diagonal);
 
         #endregion
 

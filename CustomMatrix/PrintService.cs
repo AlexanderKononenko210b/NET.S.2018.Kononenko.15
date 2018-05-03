@@ -3,15 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CustomMatrix.Interfaces;
 
 namespace CustomMatrix
 {
     /// <summary>
     /// Service for print information about change element
     /// </summary>
-    public class PrintService
+    public static class PrintService
     {
-        public void Print(string message)
+        public static void Print(string message)
         {
             Console.WriteLine(message);
         }

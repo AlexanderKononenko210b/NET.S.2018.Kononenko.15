@@ -25,7 +25,7 @@ namespace CustomMatrix.Visitors
         {
             var visitor = new ComputeSummVisitor<T>(second, strategy);
 
-            first.Accept(visitor);
+            visitor.DynamicVisit(first);
 
             return visitor.SummResult;
         }

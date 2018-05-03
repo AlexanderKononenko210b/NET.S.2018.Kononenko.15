@@ -1,6 +1,6 @@
 ﻿using System;
-using CustomMatrix.Exceptions;
 using CustomMatrix.Matrix;
+using CustomMatrix.Exceptions;
 using NUnit.Framework;
 
 namespace CustomMatrix.Test
@@ -24,7 +24,7 @@ namespace CustomMatrix.Test
             {
                 for (int j = 0; j < matrix.Size; j++)
                     if (i != j)
-                        Assert.AreEqual(default(int), matrix[i,j]);
+                        Assert.AreEqual(default(int), matrix[i, j]);
             }
         }
 
@@ -34,7 +34,7 @@ namespace CustomMatrix.Test
         [TestCase]
         public void DiagonalMatrix_Create_Instance_Valid_Input_Matrix_()
         {
-            int[,] inputArray = { { 4, default(int), default(int) }, 
+            int[,] inputArray = { { 4, default(int), default(int) },
                 { default(int), 2, default(int) }, { default(int), default(int), 2 } };
 
             var matrix = new DiagonalSquareMatrix<int>(inputArray);
@@ -47,14 +47,14 @@ namespace CustomMatrix.Test
         }
 
         /// <summary>
-        /// Create instance typeof DiagonalSquareMatrix using exiting matrix expected ArgumentNullException
+        /// Create instance typeof DiagonalSquareMatrix using exiting matrix expected BorderPropertyException
         /// </summary>
         [TestCase]
-        public void DiagonalMatrix_Create_Instance_Input_Matrix_Expected_ArgumentNullException()
+        public void DiagonalMatrix_Create_Instance_Input_Matrix_Expected_BorderPropertyException_If_Argument_Null()
         {
             int[,] inputArray = null;
 
-            Assert.Throws<ArgumentNullException>(() => new DiagonalSquareMatrix<int>(inputArray));
+            Assert.Throws<BorderPropertyException>(() => new DiagonalSquareMatrix<int>(inputArray));
         }
 
         /// <summary>
@@ -80,45 +80,45 @@ namespace CustomMatrix.Test
         }
 
         /// <summary>
-        /// Change instance typeof SquareMatrix expected ArgumentOutOfRangeException
+        /// Change instance typeof SquareMatrix expected IndexAccessException
         /// </summary>
         [TestCase]
-        public void DiagonalMatrix_Change_Element_Expected_ArgumentOutOfRangeException_If_IndexRow_Less_0()
+        public void DiagonalMatrix_Change_Element_Expected_IndexAccessException_If_IndexRow_Less_0()
         {
             int[,] inputArray = { { 4, default(int), default(int) },
                 { default(int), 2, default(int) }, { default(int), default(int), 2 } };
 
             var matrix = new DiagonalSquareMatrix<int>(inputArray);
 
-            Assert.Throws<ArgumentOutOfRangeException>(() => matrix[-1, 4] = 5);
+            Assert.Throws<IndexAccessException>(() => matrix[-1, 4] = 5);
         }
 
         /// <summary>
-        /// Change instance typeof SquareMatrix expected ArgumentOutOfRangeException
+        /// Change instance typeof SquareMatrix expected IndexAccessException
         /// </summary>
         [TestCase]
-        public void DiagonalMatrix_Change_Element_Expected_ArgumentOutOfRangeException_If_IndexColumn_Less_0()
+        public void DiagonalMatrix_Change_Element_Expected_IndexAccessException_If_IndexColumn_Less_0()
         {
             int[,] inputArray = { { 4, default(int), default(int) },
                 { default(int), 2, default(int) }, { default(int), default(int), 2 } };
 
             var matrix = new DiagonalSquareMatrix<int>(inputArray);
 
-            Assert.Throws<ArgumentOutOfRangeException>(() => matrix[0, -1] = 5);
+            Assert.Throws<IndexAccessException>(() => matrix[0, -1] = 5);
         }
 
         /// <summary>
-        /// Change instance typeof SquareMatrix expected InvalidOperationException
+        /// Change instance typeof SquareMatrix expected IndexAccessException
         /// </summary>
         [TestCase]
-        public void DiagonalMatrix_Change_Element_Expected_InvalidOperationException_If_Value_Violates_Requirements_Insertion()
+        public void DiagonalMatrix_Change_Element_Expected_IndexAccessException_If_Value_Violates_Requirements_Insertion()
         {
             int[,] inputArray = { { 4, default(int), default(int) },
                 { default(int), 2, default(int) }, { default(int), default(int), 2 } };
 
             var matrix = new DiagonalSquareMatrix<int>(inputArray);
 
-            Assert.Throws<InvalidOperationException>(() => matrix[1, 2] = 4);
+            Assert.Throws<IndexAccessException>(() => matrix[1, 2] = 4);
         }
     }
 }

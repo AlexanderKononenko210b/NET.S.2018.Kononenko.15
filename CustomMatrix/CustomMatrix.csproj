@@ -40,12 +40,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Exceptions\BorderPropertyException.cs" />
+    <Compile Include="Exceptions\IndexAccessException.cs" />
     <Compile Include="Matrix\BaseMatrix.cs" />
     <Compile Include="Visitors\ComputeSummVisitor.cs" />
     <Compile Include="Matrix\DiagonalSquareMatrix.cs" />
-    <Compile Include="Exceptions\BorderPropertyExceptions.cs" />
-    <Compile Include="Exceptions\VerificationChangeMatrixException.cs" />
-    <Compile Include="Interfaces\IMatrixVisitor.cs" />
+    <Compile Include="Visitors\MatrixVisitor.cs" />
     <Compile Include="Interfaces\ISummStrategy.cs" />
     <Compile Include="MatrixChangedEventArgs.cs" />
     <Compile Include="Visitors\MatrixExtansions.cs" />
@@ -57,5 +57,6 @@
   <ItemGroup>
     <None Include="Settings.StyleCop" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using CustomMatrix.Exceptions;
@@ -16,8 +17,6 @@ namespace CustomMatrix.Matrix
     {
         #region Fields
 
-        private T[,] baseMatrix;
-
         private int size;
 
         #endregion Fields
@@ -31,10 +30,10 @@ namespace CustomMatrix.Matrix
         {
             get => size;
 
-            private set
+            protected set
             {
                 if (value <= 0)
-                    throw new BorderPropertyException($"Size of matrix was more than 0");
+                    throw new BorderPropertyException($"Size is not valid");
 
                 size = value;
             }
@@ -42,40 +41,7 @@ namespace CustomMatrix.Matrix
 
         public int Length => size * size;
 
-        /// <summary>
-        /// Indexer for access element in matrix
-        /// </summary>
-        /// <param name="indexRow">row of matrix</param>
-        /// <param name="indexColumn">column of matrix</param>
-        /// <returns>element in matrix</returns>
-        public T this[int indexRow, int indexColumn]
-        {
-            get
-            {
-                if (indexRow > size - 1 || indexRow < 0 )
-                    throw new ArgumentOutOfRangeException($"Argument {nameof(indexRow)} is not valid");
-
-                if (indexColumn > size - 1 || indexColumn < 0)
-                    throw new ArgumentOutOfRangeException($"Argument {nameof(indexColumn)} is not valid");
-
-                return baseMatrix[indexRow, indexColumn];
-            }
-            set
-            {
-                if (indexRow > size - 1 || indexRow < 0)
-                    throw new ArgumentOutOfRangeException($"Argument {nameof(indexRow)} is not valid");
-
-                if (indexColumn > size - 1 || indexColumn < 0)
-                    throw new ArgumentOutOfRangeException($"Argument {nameof(indexColumn)} is not valid");
-
-                if(!IsVerificationChangeMatrix(indexRow, indexColumn, value))
-                    throw new InvalidOperationException($"Value for insert in matrix is not valid");
-                
-                baseMatrix[indexRow, indexColumn] = value;
-
-                OnMatrixChanged(new MatrixChangedEventArgs(indexRow, indexColumn));
-            }
-        }
+        public abstract T this[int indexRow, int indexColumn] { get; set; }
 
         #endregion
 
@@ -87,57 +53,6 @@ namespace CustomMatrix.Matrix
         public event EventHandler<MatrixChangedEventArgs> MatrixChanged = delegate { };
 
         #endregion Element change event
-
-        #region Constructors
-
-        /// <summary>
-        /// Constructor for create new square two range matrix
-        /// </summary>
-        /// <param name="size">size square matrix</param>
-        protected BaseMatrix(int size)
-        {
-            Size = size;
-
-            baseMatrix = new T[size, size];
-
-            MatrixChanged += CheckChangeEventHandler;
-        }
-
-        /// <summary>
-        /// Constructor for create new square two range matrix based on existing square matrix
-        /// </summary>
-        /// <param name="inputSquareMatrix">existing square matrix</param>
-        protected BaseMatrix(T[,] inputSquareMatrix)
-        {
-            if(inputSquareMatrix == null)
-                throw new ArgumentNullException($"Argument {nameof(inputSquareMatrix)} is null");
-
-            if(inputSquareMatrix.GetUpperBound(0) != inputSquareMatrix.GetUpperBound(1))
-                throw new BorderPropertyException($"Input matrix {nameof(inputSquareMatrix)} is not square");
-
-            if(!IsValidInputMatrix(inputSquareMatrix))
-                throw new BorderPropertyException($"Input matrix {nameof(inputSquareMatrix)} is not valid");
-
-            Size = (int)Math.Sqrt(inputSquareMatrix.Length);
-
-            baseMatrix = new T[size, size];
-
-            Array.Copy(inputSquareMatrix, baseMatrix, baseMatrix.Length);
-
-            MatrixChanged += CheckChangeEventHandler;
-        }
-
-        #endregion Constructors
-
-        #region Public API
-
-        /// <summary>
-        /// Method Accept for grow up functionality
-        /// </summary>
-        /// <param name="visitor"></param>
-        public abstract void Accept(IMatrixVisitor<T> visitor);
-
-        #endregion
 
         #region Protected members
 
@@ -151,26 +66,10 @@ namespace CustomMatrix.Matrix
         }
 
         /// <summary>
-        /// Handler if event changed
-        /// </summary>
-        /// <param name="sender">object started event</param>
-        /// <param name="info">info about event</param>
-        protected abstract void CheckChangeEventHandler(object sender, MatrixChangedEventArgs info);
-
-        /// <summary>
         /// Override method for check input matrix
         /// </summary>
         /// <returns>true if input matrix is valid</returns>
-        protected abstract bool IsValidInputMatrix(T[,] inputMatrix);
-
-        /// <summary>
-        /// Abstract method for check change matrix
-        /// </summary>
-        /// <param name="row">index row for change</param>
-        /// <param name="column">index column for change</param>
-        /// <param name="obj">object for insert</param>
-        /// <returns>true if change is valid</returns>
-        protected abstract bool IsVerificationChangeMatrix(int row, int column, T obj);
+        protected abstract (bool, string) IsValidInputMatrix(T[,] inputMatrix);
 
         #endregion Protected members
     }

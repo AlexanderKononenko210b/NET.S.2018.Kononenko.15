@@ -42,14 +42,14 @@ namespace CustomMatrix.Test
         }
 
         /// <summary>
-        /// Create instance typeof SquareMatrix using exiting matrix expected ArgumentNullException
+        /// Create instance typeof SquareMatrix using exiting matrix expected BorderPropertyException
         /// </summary>
         [TestCase]
-        public void SquareMatrix_Create_Instance_Input_Matrix_Expected_ArgumentNullException()
+        public void SquareMatrix_Create_Instance_Input_Matrix_Expected_BorderPropertyException_If_Argument_Null()
         {
             int[,] inputArray = null;
 
-            Assert.Throws<ArgumentNullException>(() => new SquareMatrix<int>(inputArray));
+            Assert.Throws<BorderPropertyException>(() => new SquareMatrix<int>(inputArray));
         }
 
         /// <summary>
@@ -64,29 +64,29 @@ namespace CustomMatrix.Test
         }
 
         /// <summary>
-        /// Change instance typeof SquareMatrix expected ArgumentOutOfRangeException
+        /// Change instance typeof SquareMatrix expected IndexAccessException
         /// </summary>
         [TestCase]
-        public void SquareMatrix_Change_Element_Expected_ArgumentOutOfRangeException_If_IndexRow_Less_0()
+        public void SquareMatrix_Change_Element_Expected_IndexAccessException_If_IndexRow_Less_0()
         {
             int[,] inputArray = { { 4, 6, 1 }, { 5, 2, 9 }, { 3, 5, 2 } };
 
             var matrix = new SquareMatrix<int>(inputArray);
 
-            Assert.Throws<ArgumentOutOfRangeException>(() => matrix[-1,4] = 5);
+            Assert.Throws<IndexAccessException>(() => matrix[-1, 4] = 5);
         }
 
         /// <summary>
-        /// Change instance typeof SquareMatrix expected ArgumentOutOfRangeException
+        /// Change instance typeof SquareMatrix expected IndexAccessException
         /// </summary>
         [TestCase]
-        public void SquareMatrix_Change_Element_Expected_ArgumentOutOfRangeException_If_IndexColumn_Less_0()
+        public void SquareMatrix_Change_Element_Expected_IndexAccessException_If_IndexColumn_Less_0()
         {
             int[,] inputArray = { { 4, 6, 1 }, { 5, 2, 9 }, { 3, 5, 2 } };
 
             var matrix = new SquareMatrix<int>(inputArray);
 
-            Assert.Throws<ArgumentOutOfRangeException>(() => matrix[0, -1] = 5);
+            Assert.Throws<IndexAccessException>(() => matrix[0, -1] = 5);
         }
     }
 }

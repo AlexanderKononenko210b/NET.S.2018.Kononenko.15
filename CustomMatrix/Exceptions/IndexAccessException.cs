@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace CustomMatrix.Exceptions
 {
     [Serializable]
-    public class VerificationChangeMatrixException : Exception
+    public class IndexAccessException : Exception
     {
         //
         // For guidelines regarding the creation of new exception types, see
@@ -17,19 +17,19 @@ namespace CustomMatrix.Exceptions
         //    http://msdn.microsoft.com/library/default.asp?url=/library/en-us/dncscol/html/csharp07192001.asp
         //
 
-        public VerificationChangeMatrixException()
+        public IndexAccessException()
         {
         }
 
-        public VerificationChangeMatrixException(string message) : base(message)
+        public IndexAccessException(string message) : base(message)
         {
         }
 
-        public VerificationChangeMatrixException(string message, Exception inner) : base(message, inner)
+        public IndexAccessException(string message, Exception inner) : base(message, inner)
         {
         }
 
-        protected VerificationChangeMatrixException(
+        protected IndexAccessException(
             SerializationInfo info,
             StreamingContext context) : base(info, context)
         {
