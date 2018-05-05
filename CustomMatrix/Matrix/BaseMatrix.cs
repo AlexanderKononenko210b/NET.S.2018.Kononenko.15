@@ -41,7 +41,29 @@ namespace CustomMatrix.Matrix
 
         public int Length => size * size;
 
-        public abstract T this[int indexRow, int indexColumn] { get; set; }
+        public T this[int indexRow, int indexColumn]
+        {
+            get
+            {
+                var verify = IsVerifyAccessIndex(indexRow, indexColumn);
+
+                if (!verify.Item1)
+                    throw new IndexAccessException(verify.Item2);
+
+                return GetByIndex(indexRow, indexColumn);
+            }
+            set
+            {
+                var verify = IsVerifyAccessIndex(indexRow, indexColumn);
+
+                if (!verify.Item1)
+                    throw new IndexAccessException(verify.Item2);
+
+                SetByIndex(indexRow, indexColumn, value);
+
+                OnMatrixChanged(new MatrixChangedEventArgs(indexRow, indexColumn));
+            }
+        }
 
         #endregion
 
@@ -66,11 +88,36 @@ namespace CustomMatrix.Matrix
         }
 
         /// <summary>
+        /// Get element in matrix
+        /// </summary>
+        /// <param name="indexRow">row of matrix</param>
+        /// <param name="indexColumn">column of matrix</param>
+        /// <returns>element in matrix</returns>
+        protected abstract T GetByIndex(int indexRow, int indexColumn);
+
+        /// <summary>
+        /// Set element in matrix
+        /// </summary>
+        /// <param name="indexRow">row of matrix</param>
+        /// <param name="indexColumn">column of matrix</param>
+        /// <param name="value">column of matrix</param>
+        /// <returns>element in matrix</returns>
+        protected abstract void SetByIndex(int indexRow, int indexColumn, T value);
+
+        /// <summary>
         /// Override method for check input matrix
         /// </summary>
         /// <returns>true if input matrix is valid</returns>
         protected abstract (bool, string) IsValidInputMatrix(T[,] inputMatrix);
 
-        #endregion Protected members
+        /// <summary>
+        /// Verify value index for get or set element in matrix
+        /// </summary>
+        /// <param name="indexRow">row index</param>
+        /// <param name="indexColumn">column index</param>
+        /// <returns>Item1 - true if valid index, Item2 - message about result verify operation</returns>
+        protected abstract (bool, string) IsVerifyAccessIndex(int indexRow, int indexColumn);
+
+        #endregion
     }
 }

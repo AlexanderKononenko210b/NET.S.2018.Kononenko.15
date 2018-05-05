@@ -57,41 +57,30 @@ namespace CustomMatrix.Matrix
 
         #endregion Constructors
 
-        #region Public Api
+        #region Protected and private members
 
         /// <summary>
-        /// Indexer for access element in matrix
+        /// Get element in matrix
         /// </summary>
         /// <param name="indexRow">row of matrix</param>
         /// <param name="indexColumn">column of matrix</param>
         /// <returns>element in matrix</returns>
-        public override T this[int indexRow, int indexColumn]
+        protected override T GetByIndex(int indexRow, int indexColumn)
         {
-            get
-            {
-                var verify = IsVerifyAccessIndex(indexRow, indexColumn);
-
-                if (!verify.Item1)
-                    throw new IndexAccessException(verify.Item2);
-
-                return matrix[indexRow, indexColumn];
-            }
-            set
-            {
-                var verify = IsVerifyAccessIndex(indexRow, indexColumn);
-
-                if (!verify.Item1)
-                    throw new IndexAccessException(verify.Item2);
-
-                matrix[indexRow, indexColumn] = value;
-
-                OnMatrixChanged(new MatrixChangedEventArgs(indexRow, indexColumn));
-            }
+            return matrix[indexRow, indexColumn];
         }
 
-        #endregion
-
-        #region Protected and private members
+        /// <summary>
+        /// Set element in matrix
+        /// </summary>
+        /// <param name="indexRow">row of matrix</param>
+        /// <param name="indexColumn">column of matrix</param>
+        /// <param name="value">column of matrix</param>
+        /// <returns>element in matrix</returns>
+        protected override void SetByIndex(int indexRow, int indexColumn, T value)
+        {
+            matrix[indexRow, indexColumn] = value;
+        }
 
         /// <summary>
         /// Override method for check input matrix
@@ -124,7 +113,7 @@ namespace CustomMatrix.Matrix
         /// <param name="indexRow">index row for change</param>
         /// <param name="indexColumn">index column for change</param>
         /// <returns>true if index is valid</returns>
-        private (bool, string) IsVerifyAccessIndex(int indexRow, int indexColumn)
+        protected override (bool, string) IsVerifyAccessIndex(int indexRow, int indexColumn)
         {
             if (indexRow > Size - 1 || indexRow < 0)
                 return (false, $"Argument {nameof(indexRow)} is not valid");

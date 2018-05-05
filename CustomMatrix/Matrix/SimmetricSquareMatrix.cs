@@ -64,23 +64,16 @@ namespace CustomMatrix.Matrix
 
         #endregion Constructors
 
-        #region Public Api
+        #region Protected and private members
 
         /// <summary>
-        /// Indexer for access element in matrix
+        /// Get element in matrix
         /// </summary>
         /// <param name="indexRow">row of matrix</param>
         /// <param name="indexColumn">column of matrix</param>
         /// <returns>element in matrix</returns>
-        public override T this[int indexRow, int indexColumn]
+        protected override T GetByIndex(int indexRow, int indexColumn)
         {
-            get
-            {
-                var verify = IsVerifyAccessIndex(indexRow, indexColumn);
-
-                if (!verify.Item1)
-                    throw new IndexAccessException(verify.Item2);
-
                 if (indexRow == indexColumn)
                     return matrix[indexRow][0];
 
@@ -88,37 +81,33 @@ namespace CustomMatrix.Matrix
                     return matrix[indexRow][indexColumn - indexRow];
 
                 return matrix[indexColumn][indexRow - indexColumn];
-            }
-            set
-            {
-                var verify = IsVerifyAccessIndex(indexRow, indexColumn);
-
-                if (!verify.Item1)
-                    throw new IndexAccessException(verify.Item2);
-
-                if (indexRow == indexColumn)
-                    matrix[indexRow][0] = value;
-
-                else if (indexRow < indexColumn)
-                {
-                    matrix[indexRow][indexColumn - indexRow] = value;
-
-                    matrix[indexColumn - indexRow][indexRow] = value;
-                }
-                else
-                {
-                    matrix[indexColumn][indexRow - indexColumn] = value;
-
-                    matrix[indexRow - indexColumn][indexColumn] = value;
-                }
-
-                OnMatrixChanged(new MatrixChangedEventArgs(indexRow, indexColumn));
-            }
         }
 
-        #endregion
+        /// <summary>
+        /// Set element in matrix
+        /// </summary>
+        /// <param name="indexRow">row of matrix</param>
+        /// <param name="indexColumn">column of matrix</param>
+        /// <param name="value">column of matrix</param>
+        /// <returns>element in matrix</returns>
+        protected override void SetByIndex(int indexRow, int indexColumn, T value)
+        {
+            if (indexRow == indexColumn)
+                matrix[indexRow][0] = value;
 
-        #region Protected and private members
+            else if (indexRow < indexColumn)
+            {
+                matrix[indexRow][indexColumn - indexRow] = value;
+
+                matrix[indexColumn - indexRow][indexRow] = value;
+            }
+            else
+            {
+                matrix[indexColumn][indexRow - indexColumn] = value;
+
+                matrix[indexRow - indexColumn][indexColumn] = value;
+            }
+        }
 
         /// <summary>
         /// Handler if event changed
@@ -158,7 +147,7 @@ namespace CustomMatrix.Matrix
         /// <param name="indexRow">index row for change</param>
         /// <param name="indexColumn">index column for change</param>
         /// <returns>true if index is valid</returns>
-        private (bool, string) IsVerifyAccessIndex(int indexRow, int indexColumn)
+        protected override (bool, string) IsVerifyAccessIndex(int indexRow, int indexColumn)
         {
             if (indexRow > Size - 1 || indexRow < 0)
                 return (false, $"Argument {nameof(indexRow)} is not valid");
@@ -169,6 +158,6 @@ namespace CustomMatrix.Matrix
             return (true, $"Argument {nameof(indexColumn)} and {nameof(indexRow)} is valid");
         }
 
-        #endregion Protected and private members
+        #endregion
     }
 }
