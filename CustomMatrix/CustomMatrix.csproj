@@ -43,12 +43,9 @@
     <Compile Include="Exceptions\BorderPropertyException.cs" />
     <Compile Include="Exceptions\IndexAccessException.cs" />
     <Compile Include="Matrix\BaseMatrix.cs" />
-    <Compile Include="Visitors\ComputeSummVisitor.cs" />
     <Compile Include="Matrix\DiagonalSquareMatrix.cs" />
-    <Compile Include="Visitors\MatrixVisitor.cs" />
-    <Compile Include="Interfaces\ISummStrategy.cs" />
     <Compile Include="MatrixChangedEventArgs.cs" />
-    <Compile Include="Visitors\MatrixExtansions.cs" />
+    <Compile Include="MatrixExtansions.cs" />
     <Compile Include="PrintService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Matrix\SimmetricSquareMatrix.cs" />
