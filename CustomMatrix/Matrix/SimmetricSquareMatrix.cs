@@ -33,8 +33,6 @@ namespace CustomMatrix.Matrix
 
             for(int i = 0; i < Size; i++)
                 matrix[i] = new T[Size - i];
-
-            this.MatrixChanged += CheckChangeEventHandler;
         }
 
         /// <summary>
@@ -58,8 +56,6 @@ namespace CustomMatrix.Matrix
             for (int i = 0; i <= inputMatrix.GetUpperBound(0); i++)
                 for (int j = i; j <= inputMatrix.GetUpperBound(1); j++)
                     matrix[i][j - i] = inputMatrix[i, j];
-
-            this.MatrixChanged += CheckChangeEventHandler;
         }
 
         #endregion Constructors
@@ -110,16 +106,6 @@ namespace CustomMatrix.Matrix
         }
 
         /// <summary>
-        /// Handler if event changed
-        /// </summary>
-        /// <param name="sender">object started event</param>
-        /// <param name="info">info about event</param>
-        protected void CheckChangeEventHandler(object sender, MatrixChangedEventArgs info)
-        {
-            PrintService.Print($"Simmetric square matrix was changed. Changed element row: {info.Row} column: {info.Column}");
-        }
-
-        /// <summary>
         /// Override method for check input matrix
         /// </summary>
         /// <returns>true if input matrix is valid</returns>
@@ -139,23 +125,6 @@ namespace CustomMatrix.Matrix
                         return (false, $"Input matrix {nameof(inputMatrix)} is not simmetric");
 
             return (true, $"Input matrix {nameof(inputMatrix)} is valid");
-        }
-
-        /// <summary>
-        /// Override method for check change matrix
-        /// </summary>
-        /// <param name="indexRow">index row for change</param>
-        /// <param name="indexColumn">index column for change</param>
-        /// <returns>true if index is valid</returns>
-        protected override (bool, string) IsVerifyAccessIndex(int indexRow, int indexColumn)
-        {
-            if (indexRow > Size - 1 || indexRow < 0)
-                return (false, $"Argument {nameof(indexRow)} is not valid");
-
-            if (indexColumn > Size - 1 || indexColumn < 0)
-                return (false, $"Argument {nameof(indexColumn)} is not valid");
-
-            return (true, $"Argument {nameof(indexColumn)} and {nameof(indexRow)} is valid");
         }
 
         #endregion

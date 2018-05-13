@@ -25,7 +25,7 @@ namespace CustomMatrix.Test
 
             var strategy = new IntSummStrategy();
 
-            var resultSumm = firstMatrix.Summ(secondMatrix, strategy);
+            var resultSumm = firstMatrix.Add(secondMatrix, strategy);
 
             int[,] resultMatrix = { { 8, 12, 2 }, { 10, 4, 18 }, { 6, 10, 4 } };
 
@@ -50,7 +50,7 @@ namespace CustomMatrix.Test
 
             var strategy = new IntSummStrategy();
 
-            var resultSumm = firstMatrix.Summ(secondMatrix, strategy);
+            var resultSumm = firstMatrix.Add(secondMatrix, strategy);
 
             int[,] resultMatrix = { { 8, 4, 6 }, { 4, 4, 10 }, { 6, 10, 4 } };
 
@@ -76,7 +76,7 @@ namespace CustomMatrix.Test
 
             var strategy = new IntSummStrategy();
 
-            var resultSumm = firstMatrix.Summ(secondMatrix, strategy);
+            var resultSumm = firstMatrix.Add(secondMatrix, strategy);
 
             int[,] resultMatrix = { { 8, 0, 0 }, { 0, 4, 0 }, { 0, 0, 4 } };
 
@@ -104,7 +104,7 @@ namespace CustomMatrix.Test
 
             var strategy = new IntSummStrategy();
 
-            var resultSumm = firstMatrix.Summ(secondMatrix, strategy);
+            var resultSumm = firstMatrix.Add(secondMatrix, strategy);
 
             int[,] resultMatrix = { { 8, 2, 3 }, { 2, 4, 5 }, { 3, 5, 4 } };
 
@@ -132,7 +132,7 @@ namespace CustomMatrix.Test
 
             var strategy = new IntSummStrategy();
 
-            var resultSumm = firstMatrix.Summ(secondMatrix, strategy);
+            var resultSumm = firstMatrix.Add(secondMatrix, strategy);
 
             int[,] resultMatrix = { { 8, 6, 1 }, { 5, 4, 9 }, { 3, 5, 4 } };
 
@@ -159,7 +159,7 @@ namespace CustomMatrix.Test
 
             var strategy = new IntSummStrategy();
 
-            var resultSumm = firstMatrix.Summ(secondMatrix, strategy);
+            var resultSumm = firstMatrix.Add(secondMatrix, strategy);
 
             int[,] resultMatrix = { { 8, 8, 4 }, { 7, 4, 14 }, { 6, 10, 4 } };
 

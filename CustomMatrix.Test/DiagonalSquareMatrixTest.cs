@@ -90,7 +90,7 @@ namespace CustomMatrix.Test
 
             var matrix = new DiagonalSquareMatrix<int>(inputArray);
 
-            Assert.Throws<IndexAccessException>(() => matrix[-1, 4] = 5);
+            Assert.Throws<ArgumentOutOfRangeException>(() => matrix[-1, 4] = 5);
         }
 
         /// <summary>
@@ -104,7 +104,7 @@ namespace CustomMatrix.Test
 
             var matrix = new DiagonalSquareMatrix<int>(inputArray);
 
-            Assert.Throws<IndexAccessException>(() => matrix[0, -1] = 5);
+            Assert.Throws<ArgumentOutOfRangeException>(() => matrix[0, -1] = 5);
         }
 
         /// <summary>

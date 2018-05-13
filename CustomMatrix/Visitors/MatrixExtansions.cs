@@ -21,7 +21,7 @@ namespace CustomMatrix.Visitors
         /// <param name="second">second matrix</param>
         /// <param name="strategy">strategy summ two elements type T</param>
         /// <returns>result matrix with element type T</returns>
-        public static SquareMatrix<T> Summ<T>(this BaseMatrix<T> first, BaseMatrix<T> second, ISummStrategy<T> strategy)
+        public static SquareMatrix<T> Add<T>(this BaseMatrix<T> first, BaseMatrix<T> second, ISummStrategy<T> strategy)
         {
             var visitor = new ComputeSummVisitor<T>(second, strategy);
 

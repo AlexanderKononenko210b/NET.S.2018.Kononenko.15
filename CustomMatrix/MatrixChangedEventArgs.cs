@@ -11,12 +11,16 @@ namespace CustomMatrix
     /// </summary>
     public class MatrixChangedEventArgs : EventArgs
     {
+        public string TypeMatrix { get; }
+
         public int Row { get; }
 
         public int Column { get; }
 
-        public MatrixChangedEventArgs(int row, int column)
+        public MatrixChangedEventArgs(string typeMatrix, int row, int column)
         {
+            this.TypeMatrix = typeMatrix;
+
             this.Row = row;
 
             this.Column = column;

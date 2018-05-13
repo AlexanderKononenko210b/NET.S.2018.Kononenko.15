@@ -45,23 +45,25 @@ namespace CustomMatrix.Matrix
         {
             get
             {
-                var verify = IsVerifyAccessIndex(indexRow, indexColumn);
+                if (indexRow > Size - 1 || indexRow < 0)
+                    throw new ArgumentOutOfRangeException($"Argument {nameof(indexRow)} is not valid");
 
-                if (!verify.Item1)
-                    throw new IndexAccessException(verify.Item2);
+                if (indexColumn > Size - 1 || indexColumn < 0)
+                    throw new ArgumentOutOfRangeException($"Argument {nameof(indexColumn)} is not valid");
 
                 return GetByIndex(indexRow, indexColumn);
             }
             set
             {
-                var verify = IsVerifyAccessIndex(indexRow, indexColumn);
+                if (indexRow > Size - 1 || indexRow < 0)
+                    throw new ArgumentOutOfRangeException($"Argument {nameof(indexRow)} is not valid");
 
-                if (!verify.Item1)
-                    throw new IndexAccessException(verify.Item2);
+                if (indexColumn > Size - 1 || indexColumn < 0)
+                    throw new ArgumentOutOfRangeException($"Argument {nameof(indexColumn)} is not valid");
 
                 SetByIndex(indexRow, indexColumn, value);
 
-                OnMatrixChanged(new MatrixChangedEventArgs(indexRow, indexColumn));
+                OnMatrixChanged(new MatrixChangedEventArgs(this.GetType().ToString(), indexRow, indexColumn));
             }
         }
 
@@ -72,7 +74,7 @@ namespace CustomMatrix.Matrix
         /// <summary>
         /// Event where change the element in matrix
         /// </summary>
-        public event EventHandler<MatrixChangedEventArgs> MatrixChanged = delegate { };
+        public event EventHandler<MatrixChangedEventArgs> MatrixChanged;
 
         #endregion Element change event
 
@@ -84,7 +86,7 @@ namespace CustomMatrix.Matrix
         /// <param name="info">info about event</param>
         protected virtual void OnMatrixChanged(MatrixChangedEventArgs info)
         {
-            MatrixChanged(this, info);
+            MatrixChanged?.Invoke(this, info);
         }
 
         /// <summary>
@@ -109,14 +111,6 @@ namespace CustomMatrix.Matrix
         /// </summary>
         /// <returns>true if input matrix is valid</returns>
         protected abstract (bool, string) IsValidInputMatrix(T[,] inputMatrix);
-
-        /// <summary>
-        /// Verify value index for get or set element in matrix
-        /// </summary>
-        /// <param name="indexRow">row index</param>
-        /// <param name="indexColumn">column index</param>
-        /// <returns>Item1 - true if valid index, Item2 - message about result verify operation</returns>
-        protected abstract (bool, string) IsVerifyAccessIndex(int indexRow, int indexColumn);
 
         #endregion
     }
